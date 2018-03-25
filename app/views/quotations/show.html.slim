@@ -1,0 +1,21 @@
+= provide(:title, "Cotizacion #{@quotation.id.to_s.rjust(5, "0")}")
+
+= link_to('Exportar PDF', quotations_path)
+p
+  = @quotation.id.to_s.rjust(5, "0")
+p
+  = @quotation.name
+p
+  = @quotation.company
+p
+  = @quotation.address
+p
+  = @quotation.phone
+
+= link_to('Terminar Cotizacion', quotations_path ,class: 'btn btn-success')
+br
+= link_to('Cancelar Cotizacion', quotations_path ,class: 'btn btn-danger')
+br
+= link_to('Confirmar', quotations_path, class: 'btn btn-primary')
+
+= link_to('Editar', quotations_path, class: 'btn btn-primary')

@@ -1,0 +1,51 @@
+= provide(:title, "Cotizaciones")
+
+.container-fluid
+  .row
+    .col-md-8
+      h1 Lista de cotizaciones
+    .col-md-4
+      = link_to('Nueva Cotizacion', new_quotation_path, class: 'btn btn-primary')
+
+h5 Cotizaciones pendientes
+table.table.table-bordered.table-hover
+  thead.thead-dark
+    tr
+      th Folio
+      th Fecha
+      th Nombre
+      th Compania
+      th
+  tbody
+    - @pending_quotations.each do |quotation|
+      tr
+        td = quotation.id.to_s.rjust(5, "0")
+        td = quotation.date
+        td = quotation.name
+        td = quotation.company
+        td = link_to('Detalle', quotation_path(quotation.id))
+
+h5 Cotizaciones cerradas
+table.table.table-bordered.table-hover
+  thead.thead-dark
+    tr
+      th Folio
+      th Fecha
+      th Nombre
+      th Compania
+  tbody
+    - @closed_quotations.each do |quotation|
+      tr
+        td = quotation.id.to_s.rjust(5, "0")
+        td = quotation.date
+        td = quotation.name
+        td = quotation.company
+
+javascript:
+  $(document).on("click", "#table-id tr", function() {
+    var link  = $(this).data("href")
+    $.ajax({
+      url: link,
+      type: "GET"
+    });
+  });

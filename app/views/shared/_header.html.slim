@@ -1,0 +1,17 @@
+nav.navbar.navbar-expand-sm.bg-dark.navbar-dark style='margin-bottom:20px'
+  .container
+    ul.navbar-nav
+      li.nav-item.active
+        = link_to('Agemcia', root_path, class: 'nav-link')
+      - if current_user
+        li.nav-item
+          = link_to('Dashboard', root_path, class: 'nav-link')
+        li.nav-item
+          = link_to('Cotizaciones', quotations_path, class: 'nav-link')
+        li.nav-item
+          = link_to('Logout', destroy_user_session_path, method: :delete, class:'btn btn-secondary')
+      - else
+        li.nav-item style="margin-right:5px"
+          = link_to('Log in', new_user_session_path, class:'btn btn-secondary')
+        li.nav-item
+          = link_to('Sign up', new_user_registration_path, class:'btn btn-secondary')

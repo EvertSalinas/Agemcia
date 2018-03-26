@@ -25,27 +25,33 @@ table.table.table-bordered
 
 .container-fluid
   .row
-    .col-md-8
+    .col-md-7.offset-md-1
       h3 Productos
     .col-md-4
-      = link_to('Agregar Producto', new_product_path, class: 'btn btn-warning', style: 'width: 200px')
+      = link_to('Agregar Producto', new_product_path(quotation_id: @quotation.id), class: 'btn btn-warning', style: 'width: 200px')
+  .row
+    - if @products.empty?
+      .offset-md-3.col-md-8
+        h5 No hay productos registrados en esta cotizacion
+    - else
+      .offset-md-1.col-md-10
+        table.table.table-bordered.table-sm
+          thead style='background-color: #A9E2F3'
+            tr
+              th Cantidad
+              th Concepto
+              th Precio
+              th Total
+              th
+          tbody
+            - @products.each do |product|
+              tr
+                td = product.amount
+                td = product.concept
+                td = product.price
+                td = humanized_money_with_symbol product.calculate_total
+                td = link_to 'Eliminar', product_path(product.id), data: {:confirm => 'Seguro quieres eliminar este producto de la cotizacion?'}, method: :delete
 
-table.table.table-bordered.table-sm
-  thead.thead-dark
-    tr
-      th Cantidad
-      th Concepto
-      th Precio
-      th Total
-      th
-  tbody
-    - @products.each do |product|
-      tr
-        td = product.amount
-        td = product.concept
-        td = product.price
-        td = humanized_money_with_symbol product.calculate_total
-        td = link_to 'Eliminar', product_path(product.id), data: {:confirm => 'Are you sure?'}, method: :delete
 
 br
 br
@@ -54,7 +60,7 @@ br
     .col-md-3
       = link_to('Confirmar', quotations_path ,class: 'btn btn-success', style: 'width: 200px')
     .col-md-3
-      = link_to('Cancelar Cotizacion', quotations_path ,class: 'btn btn-danger', style: 'width: 200px')
+      = link_to 'Borrar Cotizacion', quotation_path, data: {:confirm => 'Seguro quieres borrar esta cotizacion?'}, method: :delete, class: 'btn btn-danger', style: 'width: 200px'
     .col-md-3
       = link_to('Editar', edit_quotation_path, class: 'btn btn-primary', style: 'width: 200px')
     .col-md-3

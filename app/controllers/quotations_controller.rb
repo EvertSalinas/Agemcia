@@ -4,7 +4,6 @@ class QuotationsController < ApplicationController
 
   def index
     @pending_quotations = @quotations.pending
-    @cancelled_quotations  = @quotations.cancelled
     @closed_quotations = @quotations.closed
   end
 
@@ -36,6 +35,13 @@ class QuotationsController < ApplicationController
       redirect_to @quotation
     else
       render :edit
+    end
+  end
+
+  def destroy
+    @quotation = Quotation.find(params[:id])
+    if @quotation.destroy
+      redirect_to quotations_path
     end
   end
 

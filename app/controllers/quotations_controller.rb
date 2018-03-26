@@ -26,6 +26,28 @@ class QuotationsController < ApplicationController
     @products = @quotation.products
   end
 
+  def edit
+    @quotation = Quotation.find(params[:id])
+  end
+
+  def update
+    @quotation = Quotation.find params[:id]
+    if @quotation.update quotation_params
+      redirect_to @quotation
+    else
+      render :edit
+    end
+  end
+
+  # def cancel_quotation
+  #   if @quotation.status == 'pendiente'
+  #     @quotation.status = 'cancelada'
+  #     render @quotation
+  #   else
+  #     render @quotation
+  #   end
+  # end
+
   private
 
   def quotation_params

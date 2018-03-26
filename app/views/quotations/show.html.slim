@@ -1,16 +1,34 @@
 = provide(:title, "Cotizacion #{@quotation.id.to_s.rjust(5, "0")}")
 
+h3 Cotizacion con folio: #{@quotation.id.to_s.rjust(5, "0")}
+
+p <strong>Fecha del Evento:</strong> #{@quotation.event_date}
+p <strong>Nombre: </strong>#{@quotation.name}
+p <strong>Compania: </strong>#{@quotation.company}
+p <strong>Direccion </strong>#{@quotation.address}
+p <strong>Telefono: </strong>#{@quotation.phone}
+
 = link_to('Exportar PDF', quotations_path)
-p
-  = @quotation.id.to_s.rjust(5, "0")
-p
-  = @quotation.name
-p
-  = @quotation.company
-p
-  = @quotation.address
-p
-  = @quotation.phone
+br
+br
+table.table.table-bordered.table-sm
+  thead.thead-dark
+    tr
+      th Cantidad
+      th Concepto
+      th Precio
+      th Total
+      th
+  tbody
+    - @products.each do |product|
+      tr
+        td = product.amount
+        td = product.concept
+        td = product.price
+        td = humanized_money_with_symbol product.calculate_total
+        td = link_to 'Eliminar', product_path(product.id), data: {:confirm => 'Are you sure?'}, method: :delete
+
+= link_to('Agregar Producto', new_product_path, class: 'btn btn-warning')
 
 = link_to('Terminar Cotizacion', quotations_path ,class: 'btn btn-success')
 br

@@ -20,7 +20,7 @@ table.table.table-bordered.table-hover
     - @pending_quotations.each do |quotation|
       tr
         td = quotation.id.to_s.rjust(5, "0")
-        td = quotation.date
+        td = quotation.event_date
         td = quotation.name
         td = quotation.company
         td = link_to('Detalle', quotation_path(quotation.id))
@@ -37,15 +37,6 @@ table.table.table-bordered.table-hover
     - @closed_quotations.each do |quotation|
       tr
         td = quotation.id.to_s.rjust(5, "0")
-        td = quotation.date
+        td = quotation.event_date
         td = quotation.name
         td = quotation.company
-
-javascript:
-  $(document).on("click", "#table-id tr", function() {
-    var link  = $(this).data("href")
-    $.ajax({
-      url: link,
-      type: "GET"
-    });
-  });

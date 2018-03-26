@@ -1,0 +1,11 @@
+= provide(:title, "Agregar Productos")
+
+h1 Agregar producto
+
+= simple_form_for @product, :url => products_path, :method => :post do |f|
+  / = f.error_notification
+  = f.input :amount, label: 'Cantidad: '
+  = f.input :concept, label: 'Concepto: '
+  = f.input :price, label: 'Precio: '
+
+  = f.button :submit, 'Agregar', class: 'btn btn-primary'

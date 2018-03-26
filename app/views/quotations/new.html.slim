@@ -3,10 +3,11 @@
 h1 Crear nueva cotizacion
 
 = simple_form_for @quotation, :url => quotations_path, :method => :post do |f|
-  = f.error_notification
-  = f.input :date, label: 'Fecha: '
+  / = f.error_notification
+  = f.input :event_date, label: 'Fecha: '
   = f.input :name, label: 'Nombre: '
   = f.input :company, label: 'Compania: '
   = f.input :address, label: 'Direccion: '
   = f.input :phone, label: 'Telefono: '
-  = f.button :submit, class: 'btn btn-primary'
+
+  = f.button :submit, 'Agregar Productos', class: 'btn btn-primary'

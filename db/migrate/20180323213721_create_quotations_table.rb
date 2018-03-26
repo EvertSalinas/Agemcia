@@ -7,6 +7,7 @@ class CreateQuotationsTable < ActiveRecord::Migration[5.1]
       t.string 'address'
       t.string 'phone'
       t.string 'status'
+      t.timestamps
     end
   end
 end

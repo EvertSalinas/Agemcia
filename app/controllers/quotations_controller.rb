@@ -23,13 +23,14 @@ class QuotationsController < ApplicationController
 
   def show
     @quotation = Quotation.find(params[:id])
+    @products = @quotation.products
   end
 
   private
 
   def quotation_params
     params.require(:quotation).permit(
-      :name, :date, :company, :company, :address, :phone
+      :name, :event_date, :company, :company, :address, :phone
     )
   end
 

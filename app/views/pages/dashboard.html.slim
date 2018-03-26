@@ -3,11 +3,11 @@
 h1 Dashboard Agencia Gema
 br
 h3 Cotizaciones Recientes
-table.table.table-bordered.table-hover
+table.table.table-bordered
   thead.thead-dark
     tr
       th Folio
-      th Fecha
+      th Fecha del Evento
       th Nombre
       th Compania
       th
@@ -15,7 +15,7 @@ table.table.table-bordered.table-hover
     - @quotations.each do |quotation|
       tr
         td = quotation.id.to_s.rjust(5, "0")
-        td = quotation.date
+        td = quotation.event_date
         td = quotation.name
         td = quotation.company
         td = link_to('Detalle', quotation_path(quotation.id))

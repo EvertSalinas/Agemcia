@@ -10,18 +10,29 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180323213721) do
+ActiveRecord::Schema.define(version: 20180326052809) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "products", force: :cascade do |t|
+    t.string "concept"
+    t.integer "amount"
+    t.integer "price_cents", default: 0, null: false
+    t.string "price_currency", default: "USD", null: false
+    t.bigint "quotation_id"
+    t.index ["quotation_id"], name: "index_products_on_quotation_id"
+  end
+
   create_table "quotations", force: :cascade do |t|
-    t.date "date"
+    t.date "event_date"
     t.string "name"
     t.string "company"
     t.string "address"
     t.string "phone"
     t.string "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|

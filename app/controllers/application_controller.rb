@@ -9,4 +9,8 @@ class ApplicationController < ActionController::Base
     @quotations = Quotation.all
   end
 
+  def set_current_quotation
+    @quotation = Quotation.last
+  end
+
 end

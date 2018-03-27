@@ -36,6 +36,9 @@ gem 'pg'
 gem 'devise'
 gem 'slim-rails'
 gem 'money-rails', '~>1'
+gem 'kaminari'
+gem 'prawn'
+gem 'prawn-table'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

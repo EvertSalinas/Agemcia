@@ -29,6 +29,7 @@ table.table.table-bordered
       h3 Productos
     .col-md-4
       = link_to('Agregar Producto', new_product_path(quotation_id: @quotation.id), class: 'btn btn-warning', style: 'width: 200px')
+br
   .row
     - if @products.empty?
       .offset-md-3.col-md-8
@@ -48,13 +49,10 @@ table.table.table-bordered
               tr
                 td = product.amount
                 td = product.concept
-                td = product.price
+                td = humanized_money_with_symbol product.price
                 td = humanized_money_with_symbol product.calculate_total
                 td = link_to 'Eliminar', product_path(product.id), data: {:confirm => 'Seguro quieres eliminar este producto de la cotizacion?'}, method: :delete
 
-
-br
-br
 .container
   .row
     .col-md-3
@@ -64,4 +62,6 @@ br
     .col-md-3
       = link_to('Editar', edit_quotation_path, class: 'btn btn-primary', style: 'width: 200px')
     .col-md-3
-      = link_to('Exportar PDF', quotations_path, class: 'btn btn-dark', style: 'width: 200px')
+      = link_to('Exportar PDF', download_quotation_path(@quotation), class: 'btn btn-dark', style: 'width: 200px', format: "pdf")
+br
+br

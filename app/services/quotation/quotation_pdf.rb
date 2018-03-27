@@ -18,30 +18,30 @@ class Quotation::QuotationPdf < Prawn::Document
   def create_header
     y_position = cursor
     fill_color "929292"
-    draw_text "Cotizacion", size: 25, :at => [400, 700]
+    draw_text "Cotización", size: 25, :at => [400, 700]
     fill_color "000000"
     draw_text "AGENCIA GEMA EVENTOS", size: 15, style: :bold, :at => [0, 670]
-    draw_text "Dardanelos Norte", size: 10, :at => [0, 655]
-    draw_text "Monterrey, Nuevo Leon. C.P. 64400", size: 10, :at => [0, 640]
-    draw_text "Telefono: 8355-0252", size: 10, :at => [0, 625]
+    draw_text "Dardanelos Norte #3120, Colonia Estrella", size: 10, :at => [0, 655]
+    draw_text "Monterrey, Nuevo León. C.P. 64400", size: 10, :at => [0, 640]
+    draw_text "Teléfono: 8355-0252", size: 10, :at => [0, 625]
 
     draw_text "FECHA:", size: 11, style: :bold, :at => [375, 670]
-    draw_text "#{Date.current}", size: 10, :at => [425, 670]
-    draw_text "Cotizacion #", size: 11, style: :bold, :at => [350, 655]
-    draw_text "#{@quotation.id}", size: 10, :at => [425, 655]
+    draw_text "#{Date.current.strftime('%x')}", size: 10, :at => [425, 670]
+    draw_text "Cotización #", size: 11, style: :bold, :at => [350, 655]
+    draw_text "#{@quotation.id.to_s.rjust(5, "0")}", size: 10, :at => [425, 655]
 
-    draw_text "Cotizacion para:", size: 11, style: :bold, :at => [0, 600]
+    draw_text "Cotización para:", size: 11, style: :bold, :at => [0, 600]
     draw_text "Nombre: ", size: 10, :at => [0, 570]
     draw_text "#{@quotation.name}", size: 10, :at => [70, 570]
-    draw_text "Compania: ", size: 10, :at => [0, 555]
+    draw_text "Compañía: ", size: 10, :at => [0, 555]
     draw_text "#{@quotation.company}", size: 10, :at => [70, 555]
-    draw_text "Direccion: ", size: 10, :at => [0, 540]
+    draw_text "Dirección: ", size: 10, :at => [0, 540]
     draw_text "#{@quotation.address}", size: 10, :at => [70, 540]
-    draw_text "Telefono: ", size: 10, :at => [0, 525]
+    draw_text "Teléfono: ", size: 10, :at => [0, 525]
     draw_text "#{@quotation.phone}", size: 10, :at => [70, 525]
 
     draw_text "Fecha de evento:", size: 11, :at => [330, 600]
-    draw_text "#{@quotation.event_date}", size: 10, :at => [425, 600]
+    draw_text "#{@quotation.event_date.strftime('%x')}", size: 10, :at => [425, 600]
   end
 
   def create_body(products_size)
@@ -72,13 +72,13 @@ class Quotation::QuotationPdf < Prawn::Document
     move_cursor_to 200
     draw_text "El equipo se entrega a pie de banqueta, en caso contrario favor de especificar:", size: 10, :at => [0, cursor]
     move_down 20
-    draw_text "Estamos a sus ordenes.", size: 10, :at => [0, cursor]
+    draw_text "Estamos a sus órdenes.", size: 10, :at => [0, cursor]
     move_down 20
-    draw_text "GRACIAS!", size: 14, style: :bold, :at => [235, cursor]
+    draw_text "¡GRACIAS!", size: 14, style: :bold, :at => [235, cursor]
     move_down 20
     image './app/assets/images/logo.png', scale: 0.18, :at => [190, cursor]
     move_down 110
-    draw_text "Nota: En caso de da;ps y extravios de equipo, el costo del mismo correra a cargo del cliente.", size: 10, :at => [0, cursor]
+    draw_text "Nota: En caso de daños y extravíos de equipo, el costo del mismo correrá a cargo del cliente.", size: 10, :at => [0, cursor]
   end
 
   def products_table

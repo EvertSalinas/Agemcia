@@ -6,9 +6,9 @@ h1 Editar Cotizacion con folio: #{@quotation.id.to_s.rjust(5, "0")}
   / = f.error_notification
   = f.input :event_date, label: 'Fecha: '
   = f.input :name, label: 'Nombre: '
-  = f.input :company, label: 'Compania: '
-  = f.input :address, label: 'Direccion: '
-  = f.input :phone, label: 'Telefono: '
+  = f.input :company, label: 'Compañía: '
+  = f.input :address, label: 'Dirección: '
+  = f.input :phone, label: 'Teléfono: '
 
   = f.button :submit, 'Confirmar cambios', class: 'btn btn-primary'
 br

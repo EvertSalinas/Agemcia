@@ -3,9 +3,9 @@
 .container-fluid
   .row
     .col-md-8
-      h1 Lista de cotizaciones
+      h1 Lista de Cotizaciones
     .col-md-4
-      = link_to('Nueva Cotizacion', new_quotation_path, class: 'btn btn-primary')
+      = link_to('Nueva Cotización', new_quotation_path, class: 'btn btn-primary')
 
 h5 Cotizaciones pendientes
 table.table.table-bordered.table-hover
@@ -14,7 +14,7 @@ table.table.table-bordered.table-hover
       th Folio
       th Fecha
       th Nombre
-      th Compania
+      th Compañía
       th
   tbody
     - @pending_quotations.each do |quotation|

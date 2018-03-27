@@ -1,13 +1,13 @@
-= provide(:title, "Nueva Cotizacion")
+= provide(:title, "Nueva Cotización")
 
-h1 Crear nueva cotizacion
+h1 Crear Nueva Cotización
 
 = simple_form_for @quotation, :url => quotations_path, :method => :post do |f|
   / = f.error_notification
   = f.input :event_date, label: 'Fecha: '
   = f.input :name, label: 'Nombre: '
-  = f.input :company, label: 'Compania: '
-  = f.input :address, label: 'Direccion: '
-  = f.input :phone, label: 'Telefono: '
+  = f.input :company, label: 'Compañía: '
+  = f.input :address, label: 'Dirección: '
+  = f.input :phone, label: 'Teléfono: '
 
   = f.button :submit, 'Agregar Productos', class: 'btn btn-primary'

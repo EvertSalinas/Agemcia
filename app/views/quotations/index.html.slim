@@ -9,7 +9,7 @@
 
 h5 Cotizaciones pendientes
 table.table.table-bordered.table-hover
-  thead.thead-dark
+  thead style='background-color: #A9E2F3'
     tr
       th Folio
       th Fecha
@@ -20,32 +20,7 @@ table.table.table-bordered.table-hover
     - @pending_quotations.each do |quotation|
       tr
         td = quotation.id.to_s.rjust(5, "0")
-        td = quotation.date
+        td = quotation.event_date
         td = quotation.name
         td = quotation.company
         td = link_to('Detalle', quotation_path(quotation.id))
-
-h5 Cotizaciones cerradas
-table.table.table-bordered.table-hover
-  thead.thead-dark
-    tr
-      th Folio
-      th Fecha
-      th Nombre
-      th Compania
-  tbody
-    - @closed_quotations.each do |quotation|
-      tr
-        td = quotation.id.to_s.rjust(5, "0")
-        td = quotation.date
-        td = quotation.name
-        td = quotation.company
-
-javascript:
-  $(document).on("click", "#table-id tr", function() {
-    var link  = $(this).data("href")
-    $.ajax({
-      url: link,
-      type: "GET"
-    });
-  });

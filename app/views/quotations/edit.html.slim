@@ -1,8 +1,8 @@
 = provide(:title, "Nueva Cotizacion")
 
-h1 Crear nueva cotizacion
+h1 Editar Cotizacion con folio: #{@quotation.id.to_s.rjust(5, "0")}
 
-= simple_form_for @quotation, :url => quotations_path, :method => :post do |f|
+= simple_form_for @quotation do |f|
   / = f.error_notification
   = f.input :event_date, label: 'Fecha: '
   = f.input :name, label: 'Nombre: '
@@ -10,4 +10,7 @@ h1 Crear nueva cotizacion
   = f.input :address, label: 'Direccion: '
   = f.input :phone, label: 'Telefono: '
 
-  = f.button :submit, 'Agregar Productos', class: 'btn btn-primary'
+  = f.button :submit, 'Confirmar cambios', class: 'btn btn-primary'
+br
+p
+  = link_to('Regresar', quotation_path(@quotation.id), class: 'btn btn-warning')

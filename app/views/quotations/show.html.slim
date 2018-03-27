@@ -1,21 +1,67 @@
 = provide(:title, "Cotizacion #{@quotation.id.to_s.rjust(5, "0")}")
 
-= link_to('Exportar PDF', quotations_path)
-p
-  = @quotation.id.to_s.rjust(5, "0")
-p
-  = @quotation.name
-p
-  = @quotation.company
-p
-  = @quotation.address
-p
-  = @quotation.phone
+h3 Cotizacion con folio: #{@quotation.id.to_s.rjust(5, "0")}
 
-= link_to('Terminar Cotizacion', quotations_path ,class: 'btn btn-success')
-br
-= link_to('Cancelar Cotizacion', quotations_path ,class: 'btn btn-danger')
-br
-= link_to('Confirmar', quotations_path, class: 'btn btn-primary')
+table.table.table-bordered
+  thead
+    tr
+      th style="width: 15%" bgcolor="#A9E2F3" Fecha del Evento
+      td = @quotation.event_date.strftime("%d/%B/%Y")
+    tr
+      th bgcolor="#A9E2F3" Nombre
+      td = @quotation.name
+    tr
+      th bgcolor="#A9E2F3" Compania
+      td = @quotation.company
+    tr
+      th bgcolor="#A9E2F3" Direccion
+      td = @quotation.address
+    tr
+      th bgcolor="#A9E2F3" Telefono
+      td = @quotation.phone
+    tr
+      th bgcolor="#A9E2F3" Estatus
+      td = @quotation.status
 
-= link_to('Editar', quotations_path, class: 'btn btn-primary')
+.container-fluid
+  .row
+    .col-md-7.offset-md-1
+      h3 Productos
+    .col-md-4
+      = link_to('Agregar Producto', new_product_path(quotation_id: @quotation.id), class: 'btn btn-warning', style: 'width: 200px')
+  .row
+    - if @products.empty?
+      .offset-md-3.col-md-8
+        h5 No hay productos registrados en esta cotizacion
+    - else
+      .offset-md-1.col-md-10
+        table.table.table-bordered.table-sm
+          thead style='background-color: #A9E2F3'
+            tr
+              th Cantidad
+              th Concepto
+              th Precio
+              th Total
+              th
+          tbody
+            - @products.each do |product|
+              tr
+                td = product.amount
+                td = product.concept
+                td = product.price
+                td = humanized_money_with_symbol product.calculate_total
+                td = link_to 'Eliminar', product_path(product.id), data: {:confirm => 'Seguro quieres eliminar este producto de la cotizacion?'}, method: :delete
+
+
+br
+br
+.container
+  .row
+    .col-md-3
+      = link_to('Confirmar', quotations_path ,class: 'btn btn-success', style: 'width: 200px')
+    .col-md-3
+      = link_to 'Borrar Cotizacion', quotation_path, data: {:confirm => 'Seguro quieres borrar esta cotizacion?'}, method: :delete, class: 'btn btn-danger', style: 'width: 200px'
+    .col-md-3
+      = link_to('Editar', edit_quotation_path, class: 'btn btn-primary', style: 'width: 200px')
+    .col-md-3
+      = link_to('Exportar PDF', quotations_path, class: 'btn btn-dark', style: 'width: 200px')

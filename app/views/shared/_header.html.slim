@@ -9,7 +9,7 @@ nav.navbar.navbar-expand-lg.bg-dark.navbar-dark style='margin-bottom:20px'
           a.nav-link.dropdown-toggle data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" Cotizaciones
           .dropdown-menu
             = link_to('Lista de Cotizaciones', quotations_path, class: 'dropdown-item')
-            = link_to('Nueva Cotizacion', new_quotation_path, class: 'dropdown-item')
+            = link_to('Nueva Cotización', new_quotation_path, class: 'dropdown-item')
         li.nav-item.mr-sm-2
           = link_to('Logout', destroy_user_session_path, method: :delete, class:'btn btn-secondary')
       - else

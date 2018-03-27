@@ -3,7 +3,7 @@ class QuotationsController < ApplicationController
   before_action :set_quotations
 
   def index
-    @pending_quotations = @quotations.pending
+    @pending_quotations = Quotation.all.page params[:page]
     @closed_quotations = @quotations.closed
   end
 
@@ -45,16 +45,18 @@ class QuotationsController < ApplicationController
     end
   end
 
-  # def cancel_quotation
-  #   if @quotation.status == 'pendiente'
-  #     @quotation.status = 'cancelada'
-  #     render @quotation
-  #   else
-  #     render @quotation
-  #   end
-  # end
+  def download
+    @quotation = Quotation.find(params[:id])
+    file_name = "Cotizacion-#{params[:id]}.pdf"
+    build_pdf(params)
+    send_data @pdf.render, filename: file_name
+  end
 
   private
+
+  def build_pdf(parameters)
+    @pdf = Quotation::QuotationPdf.new(@quotation)
+  end
 
   def quotation_params
     params.require(:quotation).permit(

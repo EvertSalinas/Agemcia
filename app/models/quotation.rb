@@ -14,6 +14,14 @@ class Quotation < ApplicationRecord
   scope :cancelled, -> { where(status: 'cancelada') }
   scope :closed, -> { where(status: 'cerrada') }
 
+  def calculate_products_total
+    total = 0
+    products.each do |p|
+      total += p.calculate_total
+    end
+    total
+  end
+
   private
 
   def set_initial_state

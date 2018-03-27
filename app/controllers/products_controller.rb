@@ -2,11 +2,12 @@ class ProductsController < ApplicationController
 
   def new
     @quotation = Quotation.find(params[:quotation_id])
+    @quotation_id = @quotation.id
     @product = Product.new
   end
 
   def create
-    @quotation = Quotation.find(params[:quotation_id])
+    @quotation = Quotation.find(params[:product][:quotation_id])
     @product = @quotation.products.build(product_params)
     if @product.save
       redirect_to @quotation

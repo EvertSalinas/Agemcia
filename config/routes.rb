@@ -12,6 +12,12 @@ Rails.application.routes.draw do
 
   root to: 'pages#dashboard'
 
-  resources :quotations
+  #get  '/quotation/download/:id', to: 'quotations#download_pdf'
+
+  resources :quotations do
+    member do
+      get :download
+    end
+  end
   resources :products
 end

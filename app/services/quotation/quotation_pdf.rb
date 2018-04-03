@@ -44,8 +44,12 @@ class Quotation::QuotationPdf < Prawn::Document
     draw_text "Teléfono: ", size: 10, :at => [0, 510]
     draw_text "#{@quotation.phone}", size: 10, :at => [70, 510]
 
-    draw_text "Fecha de evento:", size: 11, :at => [330, 600]
+    draw_text "Fecha de evento:", size: 11, style: :italic, :at => [330, 600]
     draw_text "#{I18n.localize @quotation.event_date}", size: 10, :at => [425, 600]
+    draw_text "Hora de entrega:", size: 11, style: :italic, :at => [330, 585]
+    draw_text "#{@quotation.shipment_time.strftime('%H:%M')} hrs", size: 10, :at => [425, 585]
+    draw_text "Hora de entrega:", size: 11, style: :italic, :at => [330, 570]
+    draw_text "#{@quotation.pickup_time.strftime('%H:%M')} hrs", size: 10, :at => [425, 570]
   end
 
   def create_body(products_size)

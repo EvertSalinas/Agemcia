@@ -1,3 +1,5 @@
+include ActionView::Helpers::NumberHelper
+
 class Quotation::QuotationPdf < Prawn::Document
   def initialize(quotation)
     super(top_margin: 50)
@@ -20,28 +22,30 @@ class Quotation::QuotationPdf < Prawn::Document
     fill_color "929292"
     draw_text "Cotización", size: 25, :at => [400, 700]
     fill_color "000000"
-    draw_text "AGENCIA GEMA EVENTOS", size: 15, style: :bold, :at => [0, 670]
-    draw_text "Dardanelos Norte #3120, Colonia Estrella", size: 10, :at => [0, 655]
-    draw_text "Monterrey, Nuevo León. C.P. 64400", size: 10, :at => [0, 640]
-    draw_text "Teléfono: 8355-0252", size: 10, :at => [0, 625]
+    draw_text "AGENCIA GEMA EVENTOS", size: 15, style: :bold, :at => [0, 680]
+    draw_text "GEMA ELIZABETH VALDEZ GARCIA", size: 10, :at => [0, 665]
+    draw_text "RFC: VAGG660924819", size: 10, :at => [0, 650]
+    draw_text "Dardanelos Norte #3120, Colonia Estrella", size: 10, :at => [0, 635]
+    draw_text "Monterrey, Nuevo León. C.P. 64400", size: 10, :at => [0, 620]
+    draw_text "Teléfono: 8355-0252", size: 10, :at => [0, 605]
 
     draw_text "FECHA:", size: 11, style: :bold, :at => [375, 670]
-    draw_text "#{Date.current.strftime('%x')}", size: 10, :at => [425, 670]
+    draw_text "#{I18n.localize Date.current}", size: 10, :at => [425, 670]
     draw_text "Cotización #", size: 11, style: :bold, :at => [350, 655]
     draw_text "#{@quotation.id.to_s.rjust(5, "0")}", size: 10, :at => [425, 655]
 
-    draw_text "Cotización para:", size: 11, style: :bold, :at => [0, 600]
-    draw_text "Nombre: ", size: 10, :at => [0, 570]
-    draw_text "#{@quotation.name}", size: 10, :at => [70, 570]
-    draw_text "Compañía: ", size: 10, :at => [0, 555]
-    draw_text "#{@quotation.company}", size: 10, :at => [70, 555]
-    draw_text "Dirección: ", size: 10, :at => [0, 540]
-    draw_text "#{@quotation.address}", size: 10, :at => [70, 540]
-    draw_text "Teléfono: ", size: 10, :at => [0, 525]
-    draw_text "#{@quotation.phone}", size: 10, :at => [70, 525]
+    draw_text "Cotización para:", size: 11, style: :bold, :at => [0, 580]
+    draw_text "Nombre: ", size: 10, :at => [0, 555]
+    draw_text "#{@quotation.name}", size: 10, :at => [70, 555]
+    draw_text "Compañía: ", size: 10, :at => [0, 540]
+    draw_text "#{@quotation.company}", size: 10, :at => [70, 540]
+    draw_text "Dirección: ", size: 10, :at => [0, 525]
+    draw_text "#{@quotation.address}", size: 10, :at => [70, 525]
+    draw_text "Teléfono: ", size: 10, :at => [0, 510]
+    draw_text "#{@quotation.phone}", size: 10, :at => [70, 510]
 
     draw_text "Fecha de evento:", size: 11, :at => [330, 600]
-    draw_text "#{@quotation.event_date.strftime('%x')}", size: 10, :at => [425, 600]
+    draw_text "#{I18n.localize @quotation.event_date}", size: 10, :at => [425, 600]
   end
 
   def create_body(products_size)
@@ -85,15 +89,15 @@ class Quotation::QuotationPdf < Prawn::Document
     data = [["CANTIDAD", 'CONCEPTO', 'PRECIO UNITARIO', 'TOTAL']]
     #raise 'error'
     @quotation.products.each do |p|
-      data += [[p.amount,p.concept, '$' + (p.price_cents/100.0).to_s, '$' + ((p.price_cents/100.0)*p.amount).to_s]]
+      data += [[p.amount,p.concept, number_to_currency(p.price_cents/100.0), number_to_currency((p.price_cents/100.0)*p.amount)]]
     end
     data += [[]]
   end
 
   def totals_table
-    data = [['Subtotal','$' + @subtotal.to_s]]
-    data += [['IVA (16%)','$' + @iva.to_s]]
-    data += [['TOTAL','$' + @total.to_s]]
+    data = [['Subtotal',number_to_currency(@subtotal)]]
+    data += [['IVA (16%)',number_to_currency(@iva)]]
+    data += [['TOTAL',number_to_currency(@total)]]
   end
 
 end

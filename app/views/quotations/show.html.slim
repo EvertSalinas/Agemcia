@@ -6,7 +6,7 @@ table.table.table-bordered
   thead
     tr
       th style="width: 15%" bgcolor="#A9E2F3" Fecha del Evento
-      td = @quotation.event_date.strftime("%d/%B/%Y")
+      td = I18n.localize @quotation.event_date
     tr
       th bgcolor="#A9E2F3" Nombre
       td = @quotation.name
@@ -20,8 +20,11 @@ table.table.table-bordered
       th bgcolor="#A9E2F3" Teléfono
       td = @quotation.phone
     tr
-      th bgcolor="#A9E2F3" Estatus
-      td = @quotation.status
+      th bgcolor="#A9E2F3" Hora de entrega
+      td = @quotation.shipment_time.strftime('%H:%M') + ' hrs'
+    tr
+      th bgcolor="#A9E2F3" Hora de recoger
+      td = @quotation.pickup_time.strftime('%H:%M') + ' hrs'
 
 .container-fluid
   .row

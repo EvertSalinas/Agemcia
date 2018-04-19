@@ -4,8 +4,8 @@ h1 Agregar producto
 
 = simple_form_for @product, :url => products_path, :method => :post do |f|
   / = f.error_notification
-  = f.input :amount, label: 'Cantidad: '
   = f.input :concept, label: 'Concepto: '
+  = f.input :amount, label: 'Cantidad: '
   = f.input :price, label: 'Precio: '
   = f.input :quotation_id, :as => :hidden, :input_html => { value: @quotation_id }
   = f.button :submit, 'Agregar', class: 'btn btn-primary'

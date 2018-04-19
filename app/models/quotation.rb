@@ -1,3 +1,22 @@
+# == Schema Information
+#
+# Table name: quotations
+#
+#  id               :integer          not null, primary key
+#  event_date       :date
+#  name             :string
+#  company          :string
+#  address          :string
+#  phone            :string
+#  status           :string
+#  created_at       :datetime         not null
+#  updated_at       :datetime         not null
+#  event_time       :datetime
+#  pickup_time      :datetime
+#  pickup_date      :date
+#  elaboration_date :date
+#
+
 class Quotation < ApplicationRecord
 
   validates :event_date, presence: true

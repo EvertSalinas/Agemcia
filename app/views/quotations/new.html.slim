@@ -4,12 +4,14 @@ h1 Crear Nueva Cotización
 
 = simple_form_for @quotation, :url => quotations_path, :method => :post do |f|
   / = f.error_notification
-  = f.input :event_date, label: 'Fecha: '
+  = f.input :elaboration_date, label: 'Fechad de elaboración: '
   = f.input :name, label: 'Nombre: '
   = f.input :company, label: 'Compañía: '
   = f.input :address, label: 'Dirección: '
   = f.input :phone, label: 'Teléfono: '
-  = f.input :shipment_time, as: :time, label: 'Hora de entrega: '
+  = f.input :event_date, label: 'Fecha de entrega: '
+  = f.input :event_time, as: :time, label: 'Hora de entrega: '
+  = f.input :pickup_date, label: 'Fecha de recoger: '
   = f.input :pickup_time, as: :time, label: 'Hora de recoger: '
 
   = f.button :submit, 'Agregar Productos', class: 'btn btn-primary'

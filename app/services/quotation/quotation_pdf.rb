@@ -18,23 +18,22 @@ class Quotation::QuotationPdf < Prawn::Document
   private
 
   def create_header
-    move_cursor_to 700
+    move_cursor_to 680
+    image './app/assets/images/logo-original.png', scale: 0.18, :at => [0, 750]
     fill_color "929292"
     draw_text "Cotización", size: 25, :at => [400, cursor]
     fill_color "000000"
 
-    datos_de_la_empresa(680)
-    id_de_cotizacion(670)
-    datos_de_cliente(580)
-    fechas_de_logistica(600)
+    datos_de_la_empresa(650)
+    id_de_cotizacion(650)
+    datos_de_cliente(560)
+    fechas_de_logistica(580)
 
   end
 
   def datos_de_la_empresa(y_starting_position)
     move_cursor_to y_starting_position
 
-    draw_text "AGENCIA GEMA EVENTOS", size: 15, style: :bold, :at => [0, cursor]
-    move_down 15
     draw_text "GEMA ELIZABETH VALDEZ GARCIA", size: 10, :at => [0, cursor]
     move_down 15
     draw_text "RFC: VAGG660924819", size: 10, :at => [0, cursor]
@@ -81,17 +80,17 @@ class Quotation::QuotationPdf < Prawn::Document
     draw_text "#{I18n.localize @quotation.event_date}", size: 10, :at => [425, cursor]
     move_down 15
     draw_text "Hora de entrega:", size: 11, style: :italic, :at => [330, cursor]
-    draw_text "#{@quotation.shipment_time.strftime('%H:%M')} hrs", size: 10, :at => [425, cursor]
-    # move_down 15
-    # draw_text "Fecha de recoger:", size: 11, style: :italic, :at => [330, cursor]
-    # draw_text "#{I18n.localize @quotation.event_date}", size: 10, :at => [425, cursor]
+    draw_text "#{@quotation.event_time.strftime('%H:%M')} hrs", size: 10, :at => [425, cursor]
+    move_down 15
+    draw_text "Fecha de recoger:", size: 11, style: :italic, :at => [330, cursor]
+    draw_text "#{I18n.localize @quotation.pickup_date}", size: 10, :at => [425, cursor]
     move_down 15
     draw_text "Hora de recoger:", size: 11, style: :italic, :at => [330, cursor]
     draw_text "#{@quotation.pickup_time.strftime('%H:%M')} hrs", size: 10, :at => [425, cursor]
   end
 
   def create_body(products_size)
-    move_cursor_to 500
+    move_cursor_to 450
     table(products_table) do
       row(0).background_color = 'F0F0F0'
       row(0).font_style = :bold
@@ -115,15 +114,15 @@ class Quotation::QuotationPdf < Prawn::Document
 
   def create_footer
     #move_down 20
-    move_cursor_to 200
+    move_cursor_to 120
     draw_text "El equipo se entrega a pie de banqueta, en caso contrario favor de especificar:", size: 10, :at => [0, cursor]
     move_down 20
     draw_text "Estamos a sus órdenes.", size: 10, :at => [0, cursor]
     move_down 20
     draw_text "¡GRACIAS!", size: 14, style: :bold, :at => [235, cursor]
     move_down 20
-    image './app/assets/images/logo.png', scale: 0.18, :at => [190, cursor]
-    move_down 110
+    draw_text "AGENCIA GEMA EVENTOS", size: 14, style: :bold, :at => [180, cursor]
+    move_down 40
     draw_text "Nota: En caso de daños y extravíos de equipo, el costo del mismo correrá a cargo del cliente.", size: 10, :at => [0, cursor]
   end
 

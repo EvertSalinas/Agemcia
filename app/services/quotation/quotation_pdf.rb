@@ -81,7 +81,7 @@ class Quotation::QuotationPdf < Prawn::Document
     move_down 15
     draw_text "Hora de entrega:", size: 11, style: :italic, :at => [330, cursor]
     draw_text "#{@quotation.event_time.strftime('%H:%M')} hrs", size: 10, :at => [425, cursor]
-    move_down 15
+    move_down 20
     draw_text "Fecha de recoger:", size: 11, style: :italic, :at => [330, cursor]
     draw_text "#{I18n.localize @quotation.pickup_date}", size: 10, :at => [425, cursor]
     move_down 15
@@ -113,14 +113,13 @@ class Quotation::QuotationPdf < Prawn::Document
   end
 
   def create_footer
-    #move_down 20
     move_cursor_to 120
     draw_text "El equipo se entrega a pie de banqueta, en caso contrario favor de especificar:", size: 10, :at => [0, cursor]
     move_down 20
     draw_text "Estamos a sus órdenes.", size: 10, :at => [0, cursor]
     move_down 20
     draw_text "¡GRACIAS!", size: 14, style: :bold, :at => [235, cursor]
-    move_down 20
+    move_down 40
     draw_text "AGENCIA GEMA EVENTOS", size: 14, style: :bold, :at => [180, cursor]
     move_down 40
     draw_text "Nota: En caso de daños y extravíos de equipo, el costo del mismo correrá a cargo del cliente.", size: 10, :at => [0, cursor]

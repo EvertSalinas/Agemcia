@@ -1,30 +1,45 @@
 = provide(:title, "Cotización #{@quotation.id.to_s.rjust(5, "0")}")
 
-h3 Cotización con Folio: #{@quotation.id.to_s.rjust(5, "0")}
+h3 Cotización: #{@quotation.id.to_s.rjust(5, "0")}
+h5 Fecha: #{I18n.localize @quotation.elaboration_date}
 
-table.table.table-bordered
-  thead
-    tr
-      th style="width: 15%" bgcolor="#A9E2F3" Fecha del Evento
-      td = I18n.localize @quotation.event_date
-    tr
-      th bgcolor="#A9E2F3" Nombre
-      td = @quotation.name
-    tr
-      th bgcolor="#A9E2F3" Compañía
-      td = @quotation.company
-    tr
-      th bgcolor="#A9E2F3" Dirección
-      td = @quotation.address
-    tr
-      th bgcolor="#A9E2F3" Teléfono
-      td = @quotation.phone
-    tr
-      th bgcolor="#A9E2F3" Hora de entrega
-      td = @quotation.shipment_time.strftime('%H:%M') + ' hrs'
-    tr
-      th bgcolor="#A9E2F3" Hora de recoger
-      td = @quotation.pickup_time.strftime('%H:%M') + ' hrs'
+br
+
+.container
+  .row
+    .col-md-5
+      table.table.table-bordered
+        thead
+          tr
+            th bgcolor="#A9E2F3" Nombre:
+            td #{@quotation.name}
+          tr
+            th bgcolor="#A9E2F3" Compañía:
+            td #{@quotation.company}
+          tr
+            th bgcolor="#A9E2F3" Dirección:
+            td #{@quotation.address}
+          tr
+            th bgcolor="#A9E2F3" Teléfono:
+            td #{@quotation.phone}
+    .col-md-5.offset-md-2
+      table.table.table-bordered
+        thead
+          tr
+            th bgcolor="#A9E2F3" Fecha de entrega:
+            td = I18n.localize @quotation.event_date
+          tr
+            th bgcolor="#A9E2F3" Hora de entrega:
+            td = @quotation.event_time.strftime('%H:%M') + ' hrs'
+          tr
+            th bgcolor="#A9E2F3" Fecha de recoger:
+            td = I18n.localize @quotation.pickup_date
+          tr
+            th bgcolor="#A9E2F3" Hora de recoger:
+            td = @quotation.pickup_time.strftime('%H:%M') + ' hrs'
+
+br
+br
 
 .container-fluid
   .row
@@ -35,7 +50,7 @@ table.table.table-bordered
 br
   .row
     - if @products.empty?
-      .offset-md-3.col-md-8
+      .offset-md-4.col-md-8
         h5 No hay productos registrados en esta cotizacion
     - else
       .offset-md-1.col-md-10

@@ -20,6 +20,9 @@
 class Quotation < ApplicationRecord
 
   validates :event_date, presence: true
+  validates :event_time, presence: true
+  validates :pickup_time, presence: true
+  validates :pickup_date, presence: true
   validates :name, presence: true
   validates :company, presence: true
   validates :address, presence: true

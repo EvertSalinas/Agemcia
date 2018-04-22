@@ -49,7 +49,7 @@ class Quotation::QuotationPdf < Prawn::Document
     move_cursor_to y_starting_position
 
     draw_text "FECHA:", size: 11, style: :bold, :at => [375, cursor]
-    draw_text "#{I18n.localize Date.current}", size: 10, :at => [425, cursor]
+    draw_text "#{I18n.localize @quotation.elaboration_date}", size: 10, :at => [425, cursor]
     move_down 15
     draw_text "Cotización #", size: 11, style: :bold, :at => [350, cursor]
     draw_text "#{@quotation.id.to_s.rjust(5, "0")}", size: 10, :at => [425, cursor]

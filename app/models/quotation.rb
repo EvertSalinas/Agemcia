@@ -49,7 +49,7 @@ class Quotation < ApplicationRecord
 
   private
 
-  def set_initial_state
+  def set_initial_status
     self.status = 'pendiente'
     self.paid   = 'no'
     save

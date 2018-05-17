@@ -3,9 +3,9 @@ class QuotationsController < ApplicationController
   before_action :set_quotations
 
   def index
-    @pending_quotations = Quotation.pending
-    @completed_quotations = Quotation.completed
-    @cancelled_quotations = Quotation.cancelled
+    @pending_quotations   = Quotation.pendiente
+    @completed_quotations = Quotation.completada
+    @cancelled_quotations = Quotation.cancelada
   end
 
   def new
@@ -41,14 +41,6 @@ class QuotationsController < ApplicationController
     end
   end
 
-  # def destroy
-  #   @quotation = Quotation.find(params[:id])
-  #   @quotation.status = 'cancelada'
-  #   if @quotation.save
-  #     redirect_to quotations_path
-  #   end
-  # end
-
   def download
     @quotation = Quotation.find(params[:id])
     file_name = "Cotizacion-#{params[:id]}.pdf"
@@ -58,7 +50,7 @@ class QuotationsController < ApplicationController
 
   def complete
     @quotation = Quotation.find params[:id]
-    if @quotation.update(status: 'completada')
+    if @quotation.completar!
       redirect_to @quotation
     else
       flash[:error] = @quotation.errors.full_messages.to_sentence
@@ -69,13 +61,13 @@ class QuotationsController < ApplicationController
   def cancel
     @quotation = Quotation.find params[:id]
     if params[:type] == 'cancel'
-      if @quotation.update(status: 'cancelada')
+      if @quotation.cancelar!
         redirect_to @quotation
       else
         render :show
       end
     elsif params[:type] == 'reactivate'
-      if @quotation.update(status: 'pendiente')
+      if @quotation.reactivar!
         redirect_to @quotation
       else
         render :show

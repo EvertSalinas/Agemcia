@@ -8,17 +8,18 @@
 #  company          :string
 #  address          :string
 #  phone            :string
-#  status           :string
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
 #  event_time       :datetime
 #  pickup_time      :datetime
 #  pickup_date      :date
 #  elaboration_date :date
-#  paid             :boolean
+#  paid             :string
+#  state            :string
 #
 
 class Quotation < ApplicationRecord
+  include AASM
 
   validates :event_date,      presence: true
   validates :event_time,      presence: true
@@ -29,13 +30,27 @@ class Quotation < ApplicationRecord
   validates :address,         presence: true
   validates :phone,           presence: true
 
-  after_create :set_initial_status
+  after_create :set_initial_paid_status
 
   has_many :products
 
-  scope :pending,     -> { where(status: 'pendiente') }
-  scope :completed,   -> { where(status: 'completada') }
-  scope :cancelled,   -> { where(status: 'cancelada') }
+  aasm column: 'state' do
+    state :pendiente,   initial: true
+    state :completada, :cancelada
+
+    event :completar do
+      transitions from: :pendiente, to: :completada
+    end
+
+    event :reactivar do
+      transitions from: :cancelada, to: :pendiente
+    end
+
+    event :cancelar do
+      transitions from: :pendiente, to: :cancelada
+    end
+  end
+
   scope :paid,        -> { where(paid: true) }
   scope :not_paid,    -> { where(paid: false) }
 
@@ -47,11 +62,18 @@ class Quotation < ApplicationRecord
     total
   end
 
+  def pagada?
+    paid == 'si'
+  end
+
+  def no_pagada?
+    !pagada?
+  end
+
   private
 
-  def set_initial_status
-    self.status = 'pendiente'
-    self.paid   = 'no'
+  def set_initial_paid_status
+    self.paid = 'no'
     save
   end
 

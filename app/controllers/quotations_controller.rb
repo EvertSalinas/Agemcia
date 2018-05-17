@@ -38,18 +38,37 @@ class QuotationsController < ApplicationController
     end
   end
 
-  def destroy
-    @quotation = Quotation.find(params[:id])
-    if @quotation.destroy
-      redirect_to quotations_path
-    end
-  end
+  # def destroy
+  #   @quotation = Quotation.find(params[:id])
+  #   @quotation.status = 'cancelada'
+  #   if @quotation.save
+  #     redirect_to quotations_path
+  #   end
+  # end
 
   def download
     @quotation = Quotation.find(params[:id])
     file_name = "Cotizacion-#{params[:id]}.pdf"
     build_pdf(params)
     send_data @pdf.render, filename: file_name
+  end
+
+  def complete
+    @quotation = Quotation.find params[:id]
+    if @quotation.update(status: 'completada')
+      redirect_to @quotation
+    else
+      render :show
+    end
+  end
+
+  def cancel
+    @quotation = Quotation.find params[:id]
+    if @quotation.update(status: 'cancelada')
+      redirect_to @quotation
+    else
+      render :show
+    end
   end
 
   private

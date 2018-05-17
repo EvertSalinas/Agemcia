@@ -12,7 +12,9 @@ Rails.application.routes.draw do
 
   root to: 'pages#dashboard'
 
-  #get  '/quotation/download/:id', to: 'quotations#download_pdf'
+  put 'quotations/complete', to: 'quotations#complete'
+  put 'quotations/cancel',   to: 'quotations#cancel'
+  put 'quotations/pay',      to: 'quotations#pay'
 
   resources :quotations do
     member do

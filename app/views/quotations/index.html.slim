@@ -7,14 +7,15 @@
     .col-md-4
       = link_to('Nueva Cotización', new_quotation_path, class: 'btn btn-primary')
 
-h5 Cotizaciones pendientes
-table.table.table-bordered.table-hover
+h5 Cotizaciones Pendientes
+table.table.table-bordered
   thead style='background-color: #A9E2F3'
     tr
       th Folio
       th Fecha
       th Nombre
       th Compañía
+      th Pagada?
       th
   tbody
     - @pending_quotations.each do |quotation|
@@ -23,4 +24,45 @@ table.table.table-bordered.table-hover
         td = quotation.event_date
         td = quotation.name
         td = quotation.company
+        td = quotation.paid.capitalize
+        td = link_to('Detalle', quotation_path(quotation.id))
+
+h5 Cotizaciones Completadas
+table.table.table-bordered
+  thead style='background-color: #70db70'
+    tr
+      th Folio
+      th Fecha
+      th Nombre
+      th Compañía
+      th Pagada?
+      th
+  tbody
+    - @completed_quotations.each do |quotation|
+      tr
+        td = quotation.id.to_s.rjust(5, "0")
+        td = quotation.event_date
+        td = quotation.name
+        td = quotation.company
+        td = quotation.paid.capitalize
+        td = link_to('Detalle', quotation_path(quotation.id))
+
+h5 Cotizaciones Canceladas
+table.table.table-bordered
+  thead style='background-color: #ff8080'
+    tr
+      th Folio
+      th Fecha
+      th Nombre
+      th Compañía
+      th Pagada?
+      th
+  tbody
+    - @cancelled_quotations.each do |quotation|
+      tr
+        td = quotation.id.to_s.rjust(5, "0")
+        td = quotation.event_date
+        td = quotation.name
+        td = quotation.company
+        td = quotation.paid.capitalize
         td = link_to('Detalle', quotation_path(quotation.id))

@@ -3,8 +3,9 @@ class QuotationsController < ApplicationController
   before_action :set_quotations
 
   def index
-    @pending_quotations = Quotation.all.page params[:page]
-    @closed_quotations = @quotations.closed
+    @pending_quotations = Quotation.pending
+    @completed_quotations = Quotation.completed
+    @cancelled_quotations = Quotation.cancelled
   end
 
   def new
@@ -16,6 +17,7 @@ class QuotationsController < ApplicationController
     if @quotation.save
       redirect_to @quotation
     else
+      flash[:error] = @quotation.errors.full_messages.to_sentence
       render :new
     end
   end
@@ -34,22 +36,60 @@ class QuotationsController < ApplicationController
     if @quotation.update quotation_params
       redirect_to @quotation
     else
+      flash[:error] = @quotation.errors.full_messages.to_sentence
       render :edit
     end
   end
 
-  def destroy
-    @quotation = Quotation.find(params[:id])
-    if @quotation.destroy
-      redirect_to quotations_path
-    end
-  end
+  # def destroy
+  #   @quotation = Quotation.find(params[:id])
+  #   @quotation.status = 'cancelada'
+  #   if @quotation.save
+  #     redirect_to quotations_path
+  #   end
+  # end
 
   def download
     @quotation = Quotation.find(params[:id])
     file_name = "Cotizacion-#{params[:id]}.pdf"
     build_pdf(params)
     send_data @pdf.render, filename: file_name
+  end
+
+  def complete
+    @quotation = Quotation.find params[:id]
+    if @quotation.update(status: 'completada')
+      redirect_to @quotation
+    else
+      flash[:error] = @quotation.errors.full_messages.to_sentence
+      render :show
+    end
+  end
+
+  def cancel
+    @quotation = Quotation.find params[:id]
+    if params[:type] == 'cancel'
+      if @quotation.update(status: 'cancelada')
+        redirect_to @quotation
+      else
+        render :show
+      end
+    elsif params[:type] == 'reactivate'
+      if @quotation.update(status: 'pendiente')
+        redirect_to @quotation
+      else
+        render :show
+      end
+    end
+  end
+
+  def pay
+    @quotation = Quotation.find params[:id]
+    if @quotation.update(paid: 'si')
+      redirect_to @quotation
+    else
+      render :show
+    end
   end
 
   private

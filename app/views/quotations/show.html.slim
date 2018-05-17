@@ -1,10 +1,16 @@
 = provide(:title, "Cotización #{@quotation.id.to_s.rjust(5, "0")}")
 
-h3 Cotización: #{@quotation.id.to_s.rjust(5, "0")}
-h5 Fecha: #{I18n.localize @quotation.elaboration_date}
-
 br
-
+.container
+  .row
+    .col-md-6
+      h3 Cotización: #{@quotation.id.to_s.rjust(5, "0")}
+      h5 Fecha: #{I18n.localize @quotation.elaboration_date}
+    .col-md-3
+      = link_to('Editar', edit_quotation_path, class: 'btn btn-primary', style: 'width: 200px')
+    .col-md-3
+      = link_to('Descargar PDF', download_quotation_path(@quotation), class: 'btn btn-dark', style: 'width: 200px', format: "pdf")
+br
 .container
   .row
     .col-md-5
@@ -76,13 +82,11 @@ br
 
 .container
   .row
-    .col-md-3
-      = link_to('Confirmar', quotations_path ,class: 'btn btn-success', style: 'width: 200px')
-    .col-md-3
-      = link_to 'Borrar Cotización', quotation_path, data: {:confirm => 'Seguro quieres borrar esta cotización?'}, method: :delete, class: 'btn btn-danger', style: 'width: 200px'
-    .col-md-3
-      = link_to('Editar', edit_quotation_path, class: 'btn btn-primary', style: 'width: 200px')
-    .col-md-3
-      = link_to('Descargar PDF', download_quotation_path(@quotation), class: 'btn btn-dark', style: 'width: 200px', format: "pdf")
+    .col-md-4
+      = link_to 'Cotización Pagada', quotation_path, data: {:confirm => 'Seguro quieres cancelar esta cotización?'}, class: 'btn btn-success', style: 'width: 200px'
+    .col-md-4
+      = link_to('Completar Cotización', quotations_complete_path(id: @quotation.id), method: :put, data: {:confirm => 'Confirma para completar esta cotización'}, class: 'btn btn-info', style: 'width: 200px')
+    .col-md-4
+      = link_to 'Cancelar Cotización', quotations_cancel_path(id: @quotation.id), method: :put, data: {:confirm => 'Confirma para cancelar esta cotización'}, class: 'btn btn-danger', style: 'width: 200px'
 br
 br

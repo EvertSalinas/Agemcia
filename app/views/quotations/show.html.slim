@@ -30,7 +30,10 @@ br
             td #{@quotation.phone}
           tr
             th bgcolor="#A9E2F3" Estatus:
-            td #{@quotation.status}
+            td #{@quotation.status.capitalize}
+          tr
+            th bgcolor="#A9E2F3" Pagada:
+            td #{@quotation.pagada?}
     .col-md-5.offset-md-2
       table.table.table-bordered
         thead
@@ -83,7 +86,7 @@ br
 .container
   .row
     .col-md-4
-      = link_to 'Cotización Pagada', quotation_path, data: {:confirm => 'Seguro quieres cancelar esta cotización?'}, class: 'btn btn-success', style: 'width: 200px'
+      = link_to 'Cotización Pagada', quotations_pay_path, data: {:confirm => 'Confirma para marcar como pagada esta cotización'}, class: 'btn btn-success', style: 'width: 200px'
     .col-md-4
       = link_to('Completar Cotización', quotations_complete_path(id: @quotation.id), method: :put, data: {:confirm => 'Confirma para completar esta cotización'}, class: 'btn btn-info', style: 'width: 200px')
     .col-md-4

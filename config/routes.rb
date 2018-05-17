@@ -11,9 +11,10 @@ Rails.application.routes.draw do
   end
 
   root to: 'pages#dashboard'
-  
+
   put 'quotations/complete', to: 'quotations#complete'
   put 'quotations/cancel',   to: 'quotations#cancel'
+  put 'quotations/pay',   to: 'quotations#pay'
 
   resources :quotations do
     member do

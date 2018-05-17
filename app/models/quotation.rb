@@ -15,26 +15,30 @@
 #  pickup_time      :datetime
 #  pickup_date      :date
 #  elaboration_date :date
+#  paid             :boolean
 #
 
 class Quotation < ApplicationRecord
 
-  validates :event_date, presence: true
-  validates :event_time, presence: true
-  validates :pickup_time, presence: true
-  validates :pickup_date, presence: true
-  validates :name, presence: true
-  validates :company, presence: true
-  validates :address, presence: true
-  validates :phone, presence: true
+  validates :event_date,      presence: true
+  validates :event_time,      presence: true
+  validates :pickup_time,     presence: true
+  validates :pickup_date,     presence: true
+  validates :name,            presence: true
+  validates :company,         presence: true
+  validates :address,         presence: true
+  validates :phone,           presence: true
+  validates :paid,            presence: true
 
-  after_create :set_initial_state
+  before_validation :set_initial_state, :set_initial_paid
 
   has_many :products
 
-  scope :pending, -> { where(status: 'pendiente') }
-  scope :completed, -> { where(status: 'completada') }
-  scope :cancelled, -> { where(status: 'cancelada') }
+  scope :pending,     -> { where(status: 'pendiente') }
+  scope :completed,   -> { where(status: 'completada') }
+  scope :cancelled,   -> { where(status: 'cancelada') }
+  scope :paid,        -> { where(paid: true) }
+  scope :not_paid,    -> { where(paid: false) }
 
   def calculate_products_total
     total = 0
@@ -44,11 +48,18 @@ class Quotation < ApplicationRecord
     total
   end
 
+  def pagada?
+    paid ? 'Si' : 'No'
+  end
+
   private
 
   def set_initial_state
     self.status = 'pendiente'
-    save!
+  end
+
+  def set_initial_paid
+    self.paid = false
   end
 
 end

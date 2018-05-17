@@ -3,8 +3,9 @@ class QuotationsController < ApplicationController
   before_action :set_quotations
 
   def index
-    @pending_quotations = Quotation.all.page params[:page]
-    @closed_quotations = @quotations.closed
+    @pending_quotations = Quotation.pending
+    @completed_quotations = Quotation.completed
+    @cancelled_quotations = Quotation.cancelled
   end
 
   def new

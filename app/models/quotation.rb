@@ -28,9 +28,8 @@ class Quotation < ApplicationRecord
   validates :company,         presence: true
   validates :address,         presence: true
   validates :phone,           presence: true
-  validates :paid,            presence: true
 
-  before_validation :set_initial_state, :set_initial_paid
+  after_create :set_initial_state, :set_initial_paid
 
   has_many :products
 
@@ -48,18 +47,16 @@ class Quotation < ApplicationRecord
     total
   end
 
-  def pagada?
-    paid ? 'Si' : 'No'
-  end
-
   private
 
   def set_initial_state
     self.status = 'pendiente'
+    save
   end
 
   def set_initial_paid
-    self.paid = false
+    self.paid = 'no'
+    save
   end
 
 end

@@ -61,22 +61,31 @@ class QuotationsController < ApplicationController
     if @quotation.update(status: 'completada')
       redirect_to @quotation
     else
-      render :show
-    end
-  end
-
-  def pay
-    @quotation = Quotation.find params[:id]
-    if @quotation.update(paid: true)
-      redirect_to @quotation
-    else
+      flash[:error] = @quotation.errors.full_messages.to_sentence
       render :show
     end
   end
 
   def cancel
     @quotation = Quotation.find params[:id]
-    if @quotation.update(status: 'cancelada')
+    if params[:type] == 'cancel'
+      if @quotation.update(status: 'cancelada')
+        redirect_to @quotation
+      else
+        render :show
+      end
+    elsif params[:type] == 'reactivate'
+      if @quotation.update(status: 'pendiente')
+        redirect_to @quotation
+      else
+        render :show
+      end
+    end
+  end
+
+  def pay
+    @quotation = Quotation.find params[:id]
+    if @quotation.update(paid: 'si')
       redirect_to @quotation
     else
       render :show

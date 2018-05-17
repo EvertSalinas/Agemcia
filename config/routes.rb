@@ -14,7 +14,7 @@ Rails.application.routes.draw do
 
   put 'quotations/complete', to: 'quotations#complete'
   put 'quotations/cancel',   to: 'quotations#cancel'
-  put 'quotations/pay',   to: 'quotations#pay'
+  put 'quotations/pay',      to: 'quotations#pay'
 
   resources :quotations do
     member do

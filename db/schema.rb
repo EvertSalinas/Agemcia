@@ -37,7 +37,7 @@ ActiveRecord::Schema.define(version: 20180506185208) do
     t.datetime "pickup_time"
     t.date "pickup_date"
     t.date "elaboration_date"
-    t.boolean "paid"
+    t.string "paid"
   end
 
   create_table "users", force: :cascade do |t|

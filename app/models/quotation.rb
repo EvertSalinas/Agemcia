@@ -29,7 +29,7 @@ class Quotation < ApplicationRecord
   validates :address,         presence: true
   validates :phone,           presence: true
 
-  after_create :set_initial_state, :set_initial_paid
+  after_create :set_initial_status
 
   has_many :products
 
@@ -51,11 +51,7 @@ class Quotation < ApplicationRecord
 
   def set_initial_state
     self.status = 'pendiente'
-    save
-  end
-
-  def set_initial_paid
-    self.paid = 'no'
+    self.paid   = 'no'
     save
   end
 

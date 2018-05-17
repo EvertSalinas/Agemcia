@@ -17,6 +17,7 @@ class QuotationsController < ApplicationController
     if @quotation.save
       redirect_to @quotation
     else
+      flash[:error] = @quotation.errors.full_messages.to_sentence
       render :new
     end
   end
@@ -35,6 +36,7 @@ class QuotationsController < ApplicationController
     if @quotation.update quotation_params
       redirect_to @quotation
     else
+      flash[:error] = @quotation.errors.full_messages.to_sentence
       render :edit
     end
   end
@@ -57,6 +59,15 @@ class QuotationsController < ApplicationController
   def complete
     @quotation = Quotation.find params[:id]
     if @quotation.update(status: 'completada')
+      redirect_to @quotation
+    else
+      render :show
+    end
+  end
+
+  def pay
+    @quotation = Quotation.find params[:id]
+    if @quotation.update(paid: true)
       redirect_to @quotation
     else
       render :show

@@ -24,7 +24,7 @@ table.table.table-bordered
         td = quotation.event_date
         td = quotation.name
         td = quotation.company
-        td = quotation.pagada?
+        td = quotation.paid.capitalize
         td = link_to('Detalle', quotation_path(quotation.id))
 
 h5 Cotizaciones Completadas
@@ -44,7 +44,7 @@ table.table.table-bordered
         td = quotation.event_date
         td = quotation.name
         td = quotation.company
-        td = quotation.pagada?
+        td = quotation.paid.capitalize
         td = link_to('Detalle', quotation_path(quotation.id))
 
 h5 Cotizaciones Canceladas
@@ -64,5 +64,5 @@ table.table.table-bordered
         td = quotation.event_date
         td = quotation.name
         td = quotation.company
-        td = quotation.pagada?
+        td = quotation.paid.capitalize
         td = link_to('Detalle', quotation_path(quotation.id))

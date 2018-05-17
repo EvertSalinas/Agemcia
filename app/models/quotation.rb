@@ -33,8 +33,8 @@ class Quotation < ApplicationRecord
   has_many :products
 
   scope :pending, -> { where(status: 'pendiente') }
+  scope :completed, -> { where(status: 'completada') }
   scope :cancelled, -> { where(status: 'cancelada') }
-  scope :closed, -> { where(status: 'cerrada') }
 
   def calculate_products_total
     total = 0

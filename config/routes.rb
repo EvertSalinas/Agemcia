@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   devise_for :users
   devise_scope :user do
     authenticated :user do
-      root 'pages#dashboard', as: :authenticated_root
+      root 'quotations#index', as: :authenticated_root
     end
 
     unauthenticated do
@@ -10,7 +10,7 @@ Rails.application.routes.draw do
     end
   end
 
-  root to: 'pages#dashboard'
+  root to: 'quotations#index'
 
   put 'quotations/complete', to: 'quotations#complete'
   put 'quotations/cancel',   to: 'quotations#cancel'

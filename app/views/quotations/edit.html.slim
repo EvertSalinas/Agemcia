@@ -1,19 +1,23 @@
 = provide(:title, "Nueva Cotizacion")
 
-h1 Editar Cotizacion con folio: #{@quotation.id.to_s.rjust(5, "0")}
+h1 style='text-align: center' Editar Cotizacion con folio: #{@quotation.id.to_s.rjust(5, "0")}
 
-= simple_form_for @quotation do |f|
-  = f.input :elaboration_date, label: 'Fechad de elaboración: '
-  = f.input :name, label: 'Nombre: '
-  = f.input :company, label: 'Compañía: '
-  = f.input :address, label: 'Dirección: '
-  = f.input :phone, label: 'Teléfono: '
-  = f.input :event_date, label: 'Fecha de entrega: '
-  = f.input :event_time, as: :time, label: 'Hora de entrega: '
-  = f.input :pickup_date, label: 'Fecha de recoger: '
-  = f.input :pickup_time, as: :time, label: 'Hora de recoger: '
+.container
+  .row
+    .offset-md-2.col-md-8
+      .jumbotron
+        = simple_form_for @quotation do |f|
+          = f.input :elaboration_date, label: 'Fechad de elaboración: '
+          = f.input :name, label: 'Nombre: '
+          = f.input :company, label: 'Compañía: '
+          = f.input :address, label: 'Dirección: '
+          = f.input :phone, label: 'Teléfono: '
+          = f.input :event_date, label: 'Fecha de entrega: '
+          = f.input :event_time, as: :time, label: 'Hora de entrega: '
+          = f.input :pickup_date, label: 'Fecha de recoger: '
+          = f.input :pickup_time, as: :time, label: 'Hora de recoger: '
 
-  = f.button :submit, 'Confirmar cambios', class: 'btn btn-primary'
-br
-p
-  = link_to('Regresar', quotation_path(@quotation.id), class: 'btn btn-warning')
+          = f.button :submit, 'Confirmar cambios', class: 'btn btn-primary'
+        br
+        p
+          = link_to('Regresar', quotation_path(@quotation.id), class: 'btn btn-warning')

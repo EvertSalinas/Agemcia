@@ -76,17 +76,17 @@ class Quotation::QuotationPdf < Prawn::Document
   def fechas_de_logistica(y_starting_position)
     move_cursor_to y_starting_position
 
-    draw_text "Fecha de evento:", size: 11, style: :italic, :at => [330, cursor]
+    draw_text "Fecha de entrega:", size: 11, style: :italic, :at => [330, cursor]
     draw_text "#{I18n.localize @quotation.event_date}", size: 10, :at => [425, cursor]
     move_down 15
-    draw_text "Hora de entrega:", size: 11, style: :italic, :at => [330, cursor]
-    draw_text "#{@quotation.event_time.strftime('%H:%M')} hrs", size: 10, :at => [425, cursor]
-    move_down 20
+    #draw_text "Hora de entrega:", size: 11, style: :italic, :at => [330, cursor]
+    #draw_text "#{@quotation.event_time.strftime('%H:%M')} hrs", size: 10, :at => [425, cursor]
+    #move_down 20
     draw_text "Fecha de recoger:", size: 11, style: :italic, :at => [330, cursor]
     draw_text "#{I18n.localize @quotation.pickup_date}", size: 10, :at => [425, cursor]
     move_down 15
-    draw_text "Hora de recoger:", size: 11, style: :italic, :at => [330, cursor]
-    draw_text "#{@quotation.pickup_time.strftime('%H:%M')} hrs", size: 10, :at => [425, cursor]
+    #draw_text "Hora de recoger:", size: 11, style: :italic, :at => [330, cursor]
+    #draw_text "#{@quotation.pickup_time.strftime('%H:%M')} hrs", size: 10, :at => [425, cursor]
   end
 
   def create_body(products_size)

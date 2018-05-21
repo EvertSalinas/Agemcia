@@ -1,6 +1,5 @@
 class QuotationsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_quotations
 
   def index
     @pending_quotations   = Quotation.pendiente
@@ -13,7 +12,7 @@ class QuotationsController < ApplicationController
   end
 
   def create
-    @quotation = Quotation.new(quotation_params)
+    @quotation  = Quotation.new(quotation_params)
     if @quotation.save
       redirect_to @quotation
     else
@@ -23,16 +22,16 @@ class QuotationsController < ApplicationController
   end
 
   def show
-    @quotation = Quotation.find(params[:id])
-    @products = @quotation.products
+    @quotation  = Quotation.find(params[:id])
+    @products   = @quotation.products
   end
 
   def edit
-    @quotation = Quotation.find(params[:id])
+    @quotation  = Quotation.find(params[:id])
   end
 
   def update
-    @quotation = Quotation.find params[:id]
+    @quotation  = Quotation.find params[:id]
     if @quotation.update quotation_params
       redirect_to @quotation
     else
@@ -43,7 +42,7 @@ class QuotationsController < ApplicationController
 
   def download
     @quotation = Quotation.find(params[:id])
-    file_name = "Cotizacion-#{params[:id]}.pdf"
+    file_name = "Cotización-#{params[:id]}.pdf"
     build_pdf(params)
     send_data @pdf.render, filename: file_name
   end
@@ -58,20 +57,22 @@ class QuotationsController < ApplicationController
     end
   end
 
+  def reactivate
+    @quotation = Quotation.find params[:id]
+    if @quotation.reactivar!
+      redirect_to @quotation
+    else
+      render :show
+    end
+  end
+
   def cancel
     @quotation = Quotation.find params[:id]
-    if params[:type] == 'cancel'
-      if @quotation.cancelar!
-        redirect_to @quotation
-      else
-        render :show
-      end
-    elsif params[:type] == 'reactivate'
-      if @quotation.reactivar!
-        redirect_to @quotation
-      else
-        render :show
-      end
+    if @quotation.cancelar!
+      redirect_to @quotation
+    else
+      flash[:error] = @quotation.errors.full_messages.to_sentence
+      render :show
     end
   end
 
@@ -80,6 +81,7 @@ class QuotationsController < ApplicationController
     if @quotation.update(paid: 'si')
       redirect_to @quotation
     else
+      flash[:error] = @quotation.errors.full_messages.to_sentence
       render :show
     end
   end

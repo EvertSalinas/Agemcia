@@ -1,4 +1,4 @@
-= provide(:title, "Productos")
+= provide(:title, "Producto")
 
 h1 style='text-align: center' Agregar Producto
 
@@ -7,7 +7,7 @@ h1 style='text-align: center' Agregar Producto
     .offset-md-2.col-md-8
       .jumbotron
         = simple_form_for @product, :url => products_path, :method => :post do |f|
-          / = f.error_notification
+          = f.error_notification
           = f.input :concept, label: 'Concepto: '
           = f.input :amount, label: 'Cantidad: '
           = f.input :price, label: 'Precio: '

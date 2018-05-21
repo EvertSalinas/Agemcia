@@ -21,14 +21,15 @@
 class Quotation < ApplicationRecord
   include AASM
 
-  validates :event_date,      presence: true
-  validates :event_time,      presence: true
-  validates :pickup_time,     presence: true
-  validates :pickup_date,     presence: true
-  validates :name,            presence: true
-  validates :company,         presence: true
-  validates :address,         presence: true
-  validates :phone,           presence: true
+  validates :event_date,          presence: true
+  validates :event_time,          presence: true
+  validates :pickup_time,         presence: true
+  validates :pickup_date,         presence: true
+  validates :name,                presence: true
+  validates :company,             presence: true
+  validates :address,             presence: true
+  validates :phone,               presence: true
+  validates :elaboration_date,    presence: true
 
   after_create :set_initial_paid_status
 

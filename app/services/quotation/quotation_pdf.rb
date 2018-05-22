@@ -3,6 +3,7 @@ include ActionView::Helpers::NumberHelper
 class Quotation::QuotationPdf < Prawn::Document
   def initialize(quotation)
     super(top_margin: 50)
+    Prawn::Font::AFM.hide_m17n_warning = true
 
     @quotation = quotation
     products_size = @quotation.products.size

@@ -76,8 +76,11 @@ class Quotation::QuotationPdf < Prawn::Document
   def fechas_de_logistica(y_starting_position)
     move_cursor_to y_starting_position
 
-    draw_text "Fecha de entrega:", size: 11, style: :italic, :at => [330, cursor]
+    draw_text "Fecha del evento:", size: 11, style: :italic, :at => [330, cursor]
     draw_text "#{I18n.localize @quotation.event_date}", size: 10, :at => [425, cursor]
+    move_down 15
+    draw_text "Fecha de entrega:", size: 11, style: :italic, :at => [330, cursor]
+    draw_text "#{I18n.localize @quotation.deliver_date}", size: 10, :at => [425, cursor]
     move_down 15
     #draw_text "Hora de entrega:", size: 11, style: :italic, :at => [330, cursor]
     #draw_text "#{@quotation.event_time.strftime('%H:%M')} hrs", size: 10, :at => [425, cursor]

@@ -21,16 +21,19 @@
 class Quotation < ApplicationRecord
   include AASM
 
-  validates :event_date,      presence: true
-  validates :event_time,      presence: true
-  validates :pickup_time,     presence: true
-  validates :pickup_date,     presence: true
-  validates :name,            presence: true
-  validates :company,         presence: true
-  validates :address,         presence: true
-  validates :phone,           presence: true
+  validates :event_date,          presence: true
+  validates :event_time,          presence: true
+  validates :pickup_time,         presence: true
+  validates :pickup_date,         presence: true
+  validates :name,                presence: true
+  validates :company,             presence: true
+  validates :address,             presence: true
+  validates :phone,               presence: true
+  validates :deliver_date,        presence: true
+  validates :deliver_time,        presence: true
 
-  after_create :set_initial_paid_status
+  after_create  :set_elaboration_date
+  after_create  :set_initial_paid_status
 
   has_many :products
 
@@ -72,9 +75,12 @@ class Quotation < ApplicationRecord
 
   private
 
+  def set_elaboration_date
+    self.update(elaboration_date: Date.current)
+  end
+
   def set_initial_paid_status
-    self.paid = 'no'
-    save
+    self.update(paid: 'no')
   end
 
 end

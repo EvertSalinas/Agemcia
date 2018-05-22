@@ -31,8 +31,8 @@ class Quotation < ApplicationRecord
   validates :phone,               presence: true
   validates :deliver_date,        presence: true
   validates :deliver_time,        presence: true
+  validates :elaboration_date,    presence: true
 
-  after_create  :set_elaboration_date
   after_create  :set_initial_paid_status
 
   has_many :products
@@ -74,10 +74,6 @@ class Quotation < ApplicationRecord
   end
 
   private
-
-  def set_elaboration_date
-    self.update(elaboration_date: Date.current)
-  end
 
   def set_initial_paid_status
     self.update(paid: 'no')

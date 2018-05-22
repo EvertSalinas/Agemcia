@@ -7,6 +7,7 @@ h1 style='text-align: center' Editar Cotizacion con folio: #{@quotation.id.to_s.
     .offset-md-2.col-md-8
       .jumbotron
         = simple_form_for @quotation do |f|
+          = f.input :elaboration_date, label: 'Fecha de elaboracion: '
           = f.input :event_date, label: 'Fecha de evento: '
           = f.input :name, label: 'Nombre: '
           = f.input :company, label: 'Compañía: '

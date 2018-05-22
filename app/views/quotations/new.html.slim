@@ -7,6 +7,7 @@ h1 style='text-align: center' Crear Nueva Cotización
     .offset-md-2.col-md-8
       .jumbotron
         = simple_form_for @quotation, :url => quotations_path, :method => :post do |f|
+          = f.input :elaboration_date, label: 'Fecha de elaboracion: '
           = f.input :event_date, label: 'Fecha de evento: '
           = f.input :event_time, as: :time, label: 'Hora del evento: '
           = f.input :name, label: 'Nombre: '

@@ -94,7 +94,7 @@ class QuotationsController < ApplicationController
 
   def quotation_params
     params.require(:quotation).permit(
-      :name, :company, :company, :address, :phone,
+      :name, :company, :company, :address, :phone, :elaboration_date,
       :event_date, :event_time, :pickup_date, :pickup_time, :deliver_date, :deliver_time
     )
   end

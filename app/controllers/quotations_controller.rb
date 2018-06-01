@@ -43,7 +43,7 @@ class QuotationsController < ApplicationController
   def download
     @quotation = Quotation.find(params[:id])
     file_name = "Cotización-#{params[:id]}.pdf"
-    build_pdf(params)
+    build_pdf
     send_data @pdf.render, filename: file_name
   end
 
@@ -88,8 +88,8 @@ class QuotationsController < ApplicationController
 
   private
 
-  def build_pdf(parameters)
-    @pdf = Quotation::QuotationPdf.new(@quotation)
+  def build_pdf
+    @pdf = Quotation::QuotationPdf.new(@quotation, params)
   end
 
   def quotation_params

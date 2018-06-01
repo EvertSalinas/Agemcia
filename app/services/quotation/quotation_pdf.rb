@@ -1,15 +1,20 @@
 include ActionView::Helpers::NumberHelper
 
 class Quotation::QuotationPdf < Prawn::Document
-  def initialize(quotation)
+  def initialize(quotation, params)
     super(top_margin: 50)
+
+    @should_include_iva = ActiveModel::Type::Boolean.new.cast(params[:iva?])
+
     Prawn::Font::AFM.hide_m17n_warning = true
 
-    @quotation = quotation
-    products_size = @quotation.products.size
-    @subtotal = @quotation.calculate_products_total
-    @iva = @subtotal * 0.16
-    @total = @subtotal + @iva
+    @quotation        = quotation
+    products_size     = @quotation.products.size
+    @subtotal         = @quotation.calculate_products_total
+    @iva              = @subtotal * 0.16
+
+    @total = @subtotal + @iva     if @should_include_iva
+    @total = @subtotal            unless @should_include_iva
 
     create_header
     create_body(products_size)
@@ -139,9 +144,13 @@ class Quotation::QuotationPdf < Prawn::Document
   end
 
   def totals_table
-    data = [['Subtotal',number_to_currency(@subtotal)]]
-    data += [['IVA (16%)',number_to_currency(@iva)]]
-    data += [['TOTAL',number_to_currency(@total)]]
+    if @should_include_iva
+      data = [['Subtotal',number_to_currency(@subtotal)]]
+      data += [['IVA (16%)',number_to_currency(@iva)]]
+      data += [['TOTAL',number_to_currency(@total)]]
+    else
+      data = [['TOTAL',number_to_currency(@total)]]
+    end
   end
 
 end

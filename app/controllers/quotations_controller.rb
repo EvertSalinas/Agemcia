@@ -2,9 +2,9 @@ class QuotationsController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @pending_quotations   = Quotation.pendiente
-    @completed_quotations = Quotation.completada
-    @cancelled_quotations = Quotation.cancelada
+    @pending_quotations   = Quotation.pendiente.order(:id)
+    @completed_quotations = Quotation.completada.order(:id)
+    @cancelled_quotations = Quotation.cancelada.order(:id)
   end
 
   def new
@@ -43,7 +43,7 @@ class QuotationsController < ApplicationController
   def download
     @quotation = Quotation.find(params[:id])
     file_name = "Cotización-#{params[:id]}.pdf"
-    build_pdf(params)
+    build_pdf
     send_data @pdf.render, filename: file_name
   end
 
@@ -88,8 +88,8 @@ class QuotationsController < ApplicationController
 
   private
 
-  def build_pdf(parameters)
-    @pdf = Quotation::QuotationPdf.new(@quotation)
+  def build_pdf
+    @pdf = Quotation::QuotationPdf.new(@quotation, params)
   end
 
   def quotation_params

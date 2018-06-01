@@ -2,7 +2,7 @@
 #
 # Table name: quotations
 #
-#  id               :integer          not null, primary key
+#  id               :bigint(8)        not null, primary key
 #  event_date       :date
 #  name             :string
 #  company          :string
@@ -16,6 +16,8 @@
 #  elaboration_date :date
 #  paid             :string
 #  state            :string
+#  deliver_date     :date
+#  deliver_time     :date
 #
 
 class Quotation < ApplicationRecord

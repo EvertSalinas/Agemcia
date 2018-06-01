@@ -2,12 +2,12 @@
 #
 # Table name: products
 #
-#  id             :integer          not null, primary key
+#  id             :bigint(8)        not null, primary key
 #  concept        :string
 #  amount         :integer
 #  price_cents    :integer          default(0), not null
 #  price_currency :string           default("USD"), not null
-#  quotation_id   :integer
+#  quotation_id   :bigint(8)
 #
 
 class Product < ApplicationRecord

@@ -7,9 +7,14 @@ br
       h3.display-4 Cotización: #{@quotation.id.to_s.rjust(5, "0")}
       h5.lead Fecha de elaboración: #{I18n.localize @quotation.elaboration_date}
     .col-md-3
-      = link_to('Editar', edit_quotation_path, class: 'btn btn-primary', style: 'width: 200px')
+      = link_to('Editar', edit_quotation_path, class: 'btn btn-outline-primary', style: 'width: 200px')
     .col-md-3
-      = link_to('Descargar PDF', download_quotation_path(@quotation), class: 'btn btn-dark', style: 'width: 200px', format: "pdf")
+      button.btn.btn-outline-secondary.dropdown-toggle aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" type="button"  Exportar PDF
+      .dropdown-menu
+        = link_to('Con IVA', download_quotation_path(@quotation, iva?: true), class: 'btn btn-dark dropdown-item', style: 'width: 200px', format: "pdf")
+        .dropdown-divider role="separator"
+        = link_to('Sin IVA', download_quotation_path(@quotation, iva?: false), class: 'btn btn-dark dropdown-item', style: 'width: 200px', format: "pdf")
+
 br
 .container
   .row

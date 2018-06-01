@@ -2,9 +2,9 @@ class QuotationsController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @pending_quotations   = Quotation.pendiente
-    @completed_quotations = Quotation.completada
-    @cancelled_quotations = Quotation.cancelada
+    @pending_quotations   = Quotation.pendiente.order(:id)
+    @completed_quotations = Quotation.completada.order(:id)
+    @cancelled_quotations = Quotation.cancelada.order(:id)
   end
 
   def new

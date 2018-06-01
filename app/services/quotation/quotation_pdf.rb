@@ -144,9 +144,13 @@ class Quotation::QuotationPdf < Prawn::Document
   end
 
   def totals_table
-    data = [['Subtotal',number_to_currency(@subtotal)]]
-    data += [['IVA (16%)',number_to_currency(@iva)]] if @should_include_iva
-    data += [['TOTAL',number_to_currency(@total)]]
+    if @should_include_iva
+      data = [['Subtotal',number_to_currency(@subtotal)]]
+      data += [['IVA (16%)',number_to_currency(@iva)]]
+      data += [['TOTAL',number_to_currency(@total)]]
+    else
+      data = [['TOTAL',number_to_currency(@total)]]
+    end
   end
 
 end

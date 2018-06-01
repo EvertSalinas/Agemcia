@@ -10,6 +10,6 @@ h1 style='text-align: center' Agregar Producto
           = f.error_notification
           = f.input :concept, label: 'Concepto: '
           = f.input :amount, label: 'Cantidad: '
-          = f.input :price, label: 'Precio: '
+          = f.input :price, label: 'Precio: ', input_html: { value: nil }
           = f.input :quotation_id, :as => :hidden, :input_html => { value: @quotation_id }
           = f.button :submit, 'Agregar', class: 'btn btn-primary'

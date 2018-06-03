@@ -3,12 +3,18 @@
 .container-fluid
   .row
     .col-md-8
-      h1 Lista de Cotizaciones
+      h1.display-4 Lista de Cotizaciones
     .col-md-4
       = link_to('Nueva Cotización', new_quotation_path, class: 'btn btn-primary')
 
 h5 Cotizaciones Pendientes
 table.table.table-bordered
+  col width="10%"
+  col width="10%"
+  col width="30%"
+  col width="30%"
+  col width="5%"
+  col width="5%"
   thead style='background-color: #A9E2F3'
     tr
       th Folio
@@ -29,6 +35,12 @@ table.table.table-bordered
 
 h5 Cotizaciones Completadas
 table.table.table-bordered
+  col width="10%"
+  col width="10%"
+  col width="30%"
+  col width="30%"
+  col width="5%"
+  col width="5%"
   thead style='background-color: #70db70'
     tr
       th Folio
@@ -49,6 +61,12 @@ table.table.table-bordered
 
 h5 Cotizaciones Canceladas
 table.table.table-bordered
+  col width="10%"
+  col width="10%"
+  col width="30%"
+  col width="30%"
+  col width="5%"
+  col width="5%"
   thead style='background-color: #ff8080'
     tr
       th Folio

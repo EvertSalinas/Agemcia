@@ -1,0 +1,37 @@
+panel 'Last 10 one-time gifts' do
+  # table do
+  #   thead do
+  #     # tr do
+  #     #   %w[User Nonprofit Amount].each &method(:th)
+  #     # end
+  #   end
+  #   tbody do
+  #     # Gift.one_time.last(10).each do |gift|
+  #     #   tr do
+  #     #     td gift.user.email
+  #     #     td gift.nonprofit_name
+  #     #     td humanized_money_with_symbol gift.amount
+  #     #   end
+  #     end
+  #   end
+  # end
+end
+
+panel 'Last 10 recurrent gifts' do
+  # table do
+  #   thead do
+  #     tr do
+  #       %w[User Nonprofit Amount].each &method(:th)
+  #     end
+  #   end
+  #   tbody do
+  #     Gift.recurrent.last(10).each do |gift|
+  #       tr do
+  #         td gift.user.email
+  #         td gift.nonprofit_name
+  #         td humanized_money_with_symbol gift.amount
+  #       end
+  #     end
+  #   end
+  # end
+end

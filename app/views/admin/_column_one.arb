@@ -1,0 +1,31 @@
+panel "Users registered" do
+  p User.count
+end
+
+panel "Number of one time gifts" do
+  #p Gift.one_time.count
+end
+
+panel "Number of recurrent gifts" do
+  #p Gift.recurrent.count
+end
+
+panel "Accounts created each month for current year" do
+  # year = Date.current.year
+  # table do
+  #   thead do
+  #     tr do
+  #       %w[Month Total].each &method(:th)
+  #     end
+  #   end
+  #   tbody do
+  #     1..12.times do |i|
+  #       date = Date.new(year,i+1,1)
+  #       tr do
+  #         td date.strftime('%B')
+  #         td Account.where(created_at: date.beginning_of_month..date.end_of_month).count
+  #       end
+  #     end
+  #   end
+  # end
+end

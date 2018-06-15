@@ -56,8 +56,8 @@ class Quotation < ApplicationRecord
     end
   end
 
-  scope :paid,        -> { where(paid: true) }
-  scope :not_paid,    -> { where(paid: false) }
+  scope :paid,        -> { where(paid: "si") }
+  scope :not_paid,    -> { where(paid: "no") }
 
   def calculate_products_total
     total = 0

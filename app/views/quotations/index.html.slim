@@ -30,7 +30,10 @@ table.table.table-bordered
         td = quotation.event_date
         td = quotation.name
         td = quotation.company
-        td = quotation.paid.capitalize
+        - if quotation.pagada?
+          td = image_tag("checkmark.png", style: "width: 50%")
+        - else
+          td = image_tag("cross.png", style: "width: 50%")
         td = link_to('Detalle', quotation_path(quotation.id))
 
 h5 Cotizaciones Completadas
@@ -56,7 +59,10 @@ table.table.table-bordered
         td = quotation.event_date
         td = quotation.name
         td = quotation.company
-        td = quotation.paid.capitalize
+        - if quotation.pagada?
+          td = image_tag("checkmark.png", style: "width: 50%")
+        - else
+          td = image_tag("cross.png", style: "width: 50%")
         td = link_to('Detalle', quotation_path(quotation.id))
 
 h5 Cotizaciones Canceladas
@@ -82,5 +88,8 @@ table.table.table-bordered
         td = quotation.event_date
         td = quotation.name
         td = quotation.company
-        td = quotation.paid.capitalize
+        - if quotation.pagada?
+          td = image_tag("checkmark.png", style: "width: 50%")
+        - else
+          td = image_tag("cross.png", style: "width: 50%")
         td = link_to('Detalle', quotation_path(quotation.id))

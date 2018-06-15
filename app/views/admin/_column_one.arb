@@ -1,0 +1,35 @@
+panel "Cantidad de cotizaciones en total" do
+  p Quotation.count
+end
+
+panel "Cantidad de cotizaciones pendientes" do
+  p Quotation.pendiente.count
+end
+
+panel "Cantidad de cotizaciones completadas" do
+  p Quotation.completada.count
+end
+
+panel "Cantidad de cotizaciones canceladas" do
+  p Quotation.cancelada.count
+end
+
+panel "Numero de Cotizaciones creadas cada mes en el año actual" do
+  year = Date.current.year
+  table do
+    thead do
+      tr do
+        %w[Mes Total].each &method(:th)
+      end
+    end
+    tbody do
+      1..12.times do |i|
+        date = Date.new(year,i+1,1)
+        tr do
+          td date.strftime('%B')
+          td Quotation.where(created_at: date.beginning_of_month..date.end_of_month).count
+        end
+      end
+    end
+  end
+end

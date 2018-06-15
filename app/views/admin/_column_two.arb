@@ -1,0 +1,20 @@
+panel 'Cotizaciones Pendientes' do
+  table do
+    thead do
+      tr do
+        %w[Id Nombre Compañia Pagada Fecha(YYYY/MM/DD)].each &method(:th)
+      end
+    end
+    tbody do
+      Quotation.pendiente.order(:event_date).each do |t|
+        tr do
+          td link_to(t.id, admin_quotation_path(t))
+          td t.name
+          td t.company
+          td t.paid
+          td t.event_date
+        end
+      end
+    end
+  end
+end

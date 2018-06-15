@@ -17,7 +17,7 @@
 #  paid             :string
 #  state            :string
 #  deliver_date     :date
-#  deliver_time     :date
+#  deliver_time     :datetime
 #
 
 class Quotation < ApplicationRecord

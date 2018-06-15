@@ -1,4 +1,4 @@
-panel 'Last 10 one-time gifts' do
+panel '' do
   # table do
   #   thead do
   #     # tr do
@@ -17,7 +17,7 @@ panel 'Last 10 one-time gifts' do
   # end
 end
 
-panel 'Last 10 recurrent gifts' do
+panel '' do
   # table do
   #   thead do
   #     tr do

@@ -1,19 +1,20 @@
-panel 'Pending gift transactions' do
-  # table do
-  #   thead do
-  #     tr do
-  #       %w[Id Nonprofit Amount Created_at].each &method(:th)
-  #     end
-  #   end
-  #   tbody do
-  #     Transaction.pending.order(:created_at).each do |t|
-  #       tr do
-  #         td link_to(t.id, admin_transaction_path(t))
-  #         td t.recipient
-  #         td humanized_money_with_symbol t.amount
-  #         td t.created_at.strftime("%B #{t.created_at.day.ordinalize}")
-  #       end
-  #     end
-  #   end
-  # end
+panel 'Cotizaciones Pendientes' do
+  table do
+    thead do
+      tr do
+        %w[Id Nombre Compañia Pagada Fecha(YYYY/MM/DD)].each &method(:th)
+      end
+    end
+    tbody do
+      Quotation.pendiente.order(:event_date).each do |t|
+        tr do
+          td link_to(t.id, admin_quotation_path(t))
+          td t.name
+          td t.company
+          td t.paid
+          td t.event_date
+        end
+      end
+    end
+  end
 end

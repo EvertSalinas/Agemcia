@@ -1,31 +1,35 @@
-panel "Users registered" do
-  p User.count
+panel "Cantidad de cotizaciones en total" do
+  p Quotation.count
 end
 
-panel "Number of one time gifts" do
-  #p Gift.one_time.count
+panel "Cantidad de cotizaciones pendientes" do
+  p Quotation.pendiente.count
 end
 
-panel "Number of recurrent gifts" do
-  #p Gift.recurrent.count
+panel "Cantidad de cotizaciones completadas" do
+  p Quotation.completada.count
 end
 
-panel "Accounts created each month for current year" do
-  # year = Date.current.year
-  # table do
-  #   thead do
-  #     tr do
-  #       %w[Month Total].each &method(:th)
-  #     end
-  #   end
-  #   tbody do
-  #     1..12.times do |i|
-  #       date = Date.new(year,i+1,1)
-  #       tr do
-  #         td date.strftime('%B')
-  #         td Account.where(created_at: date.beginning_of_month..date.end_of_month).count
-  #       end
-  #     end
-  #   end
-  # end
+panel "Cantidad de cotizaciones canceladas" do
+  p Quotation.cancelada.count
+end
+
+panel "Numero de Cotizaciones creadas cada mes en el año actual" do
+  year = Date.current.year
+  table do
+    thead do
+      tr do
+        %w[Mes Total].each &method(:th)
+      end
+    end
+    tbody do
+      1..12.times do |i|
+        date = Date.new(year,i+1,1)
+        tr do
+          td date.strftime('%B')
+          td Quotation.where(created_at: date.beginning_of_month..date.end_of_month).count
+        end
+      end
+    end
+  end
 end

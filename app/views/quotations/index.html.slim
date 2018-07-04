@@ -7,89 +7,21 @@
     .col-md-4
       = link_to('Nueva Cotización', new_quotation_path, class: 'btn btn-primary')
 
-h5 Cotizaciones Pendientes
-table.table.table-bordered
-  col width="10%"
-  col width="10%"
-  col width="30%"
-  col width="30%"
-  col width="5%"
-  col width="5%"
-  thead style='background-color: #A9E2F3'
-    tr
-      th Folio
-      th Fecha
-      th Nombre
-      th Compañía
-      th Pagada?
-      th
-  tbody
-    - @pending_quotations.each do |quotation|
-      tr
-        td = quotation.id.to_s.rjust(5, "0")
-        td = quotation.event_date
-        td = quotation.name
-        td = quotation.company
-        - if quotation.pagada?
-          td = image_tag("checkmark.png", style: "width: 50%")
-        - else
-          td = image_tag("cross.png", style: "width: 50%")
-        td = link_to('Detalle', quotation_path(quotation.id))
+.btn-group.btn-group-lg role="group" aria-label=""
+  a data-toggle="collapse" aria-controls="pendientes" href="#pendientes" aria-expanded="true" class='btn btn-primary'
+    | Pendientes
+  a data-toggle="collapse" aria-controls="canceladas" href="#canceladas" aria-expanded="false" class='btn btn-danger'
+    | Canceladas
+  a data-toggle="collapse" aria-controls="completadas" href="#completadas" aria-expanded="false" class='btn btn-success'
+    | Completadas
 
-h5 Cotizaciones Completadas
-table.table.table-bordered
-  col width="10%"
-  col width="10%"
-  col width="30%"
-  col width="30%"
-  col width="5%"
-  col width="5%"
-  thead style='background-color: #70db70'
-    tr
-      th Folio
-      th Fecha
-      th Nombre
-      th Compañía
-      th Pagada?
-      th
-  tbody
-    - @completed_quotations.each do |quotation|
-      tr
-        td = quotation.id.to_s.rjust(5, "0")
-        td = quotation.event_date
-        td = quotation.name
-        td = quotation.company
-        - if quotation.pagada?
-          td = image_tag("checkmark.png", style: "width: 50%")
-        - else
-          td = image_tag("cross.png", style: "width: 50%")
-        td = link_to('Detalle', quotation_path(quotation.id))
+br
+br
 
-h5 Cotizaciones Canceladas
-table.table.table-bordered
-  col width="10%"
-  col width="10%"
-  col width="30%"
-  col width="30%"
-  col width="5%"
-  col width="5%"
-  thead style='background-color: #ff8080'
-    tr
-      th Folio
-      th Fecha
-      th Nombre
-      th Compañía
-      th Pagada?
-      th
-  tbody
-    - @cancelled_quotations.each do |quotation|
-      tr
-        td = quotation.id.to_s.rjust(5, "0")
-        td = quotation.event_date
-        td = quotation.name
-        td = quotation.company
-        - if quotation.pagada?
-          td = image_tag("checkmark.png", style: "width: 50%")
-        - else
-          td = image_tag("cross.png", style: "width: 50%")
-        td = link_to('Detalle', quotation_path(quotation.id))
+.container
+  .collapse.show id="pendientes"
+    = render 'pendientes'
+  .collapse id="canceladas"
+    = render 'canceladas'
+  .collapse id="completadas"
+    = render 'completadas'

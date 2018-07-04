@@ -1,0 +1,28 @@
+h5 Cotizaciones Canceladas
+table.table.table-bordered
+  col width="10%"
+  col width="10%"
+  col width="30%"
+  col width="30%"
+  col width="5%"
+  col width="5%"
+  thead style='background-color: #ff8080'
+    tr
+      th Folio
+      th Fecha
+      th Nombre
+      th Compañía
+      th Pagada?
+      th
+  tbody
+    - @cancelled_quotations.each do |quotation|
+      tr
+        td = quotation.id.to_s.rjust(5, "0")
+        td = quotation.event_date
+        td = quotation.name
+        td = quotation.company
+        - if quotation.pagada?
+          td = image_tag("checkmark.png", style: "width: 50%")
+        - else
+          td = image_tag("cross.png", style: "width: 50%")
+        td = link_to('Detalle', quotation_path(quotation.id))

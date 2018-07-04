@@ -54,6 +54,10 @@ class Quotation < ApplicationRecord
     event :cancelar do
       transitions from: :pendiente, to: :cancelada
     end
+
+    event :descompletar do
+      transitions from: :completada, to: :pendiente
+    end
   end
 
   scope :paid,        -> { where(paid: "si") }

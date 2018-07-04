@@ -34,6 +34,20 @@ ActiveAdmin.register Quotation do
     active_admin_comments
   end
 
+  action_item :view, only: :show do
+    link_to "Descompletar", admin_quotation_path(resource), method: 'put' if resource.completada?
+  end
+
+  controller do
+    def update
+      @quotation = Quotation.find(params[:id])
+      if @quotation.descompletar!
+        flash[:notice] = "Quotation descompletada."
+        redirect_to admin_quotation_path(params[:id])
+      end
+    end
+  end
+
   sidebar "Associations", only: [:show, :edit] do
     ul do
       li link_to "Productos", admin_products_path(q: { quotation_id_eq: resource } )

@@ -4,8 +4,6 @@ class Quotation::QuotationPdf < Prawn::Document
   def initialize(quotation, params)
     super(top_margin: 50)
 
-    @should_include_iva = ActiveModel::Type::Boolean.new.cast(params[:iva?])
-
     Prawn::Font::AFM.hide_m17n_warning = true
 
     @quotation        = quotation
@@ -15,6 +13,8 @@ class Quotation::QuotationPdf < Prawn::Document
 
     @total = @subtotal + @iva     if @should_include_iva
     @total = @subtotal            unless @should_include_iva
+
+    @should_include_iva = @quotation.with_iva
 
     create_header
     create_body(products_size)

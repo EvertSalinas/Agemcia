@@ -9,11 +9,7 @@ br
     .col-md-3
       = link_to('Editar', edit_quotation_path, class: 'btn btn-outline-primary', style: 'width: 200px')
     .col-md-3
-      button.btn.btn-outline-secondary.dropdown-toggle aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" type="button"  Exportar PDF
-      .dropdown-menu
-        = link_to('Con IVA', download_quotation_path(@quotation, iva?: true), class: 'btn btn-dark dropdown-item', style: 'width: 200px', format: "pdf")
-        .dropdown-divider role="separator"
-        = link_to('Sin IVA', download_quotation_path(@quotation, iva?: false), class: 'btn btn-dark dropdown-item', style: 'width: 200px', format: "pdf")
+      = link_to('Descargar PDF', download_quotation_path(@quotation), class: 'btn btn-outline-secondary', style: 'width: 200px', format: "pdf")
 
 br
 .container
@@ -39,6 +35,9 @@ br
           tr
             th bgcolor="#A9E2F3" Pagada:
             td #{@quotation.paid.capitalize}
+          tr
+            th bgcolor="#A9E2F3" Con IVA:
+            td #{@quotation.with_iva? ? "Si" : "No"}
     .col-md-5.offset-md-2
       table.table.table-bordered
         thead

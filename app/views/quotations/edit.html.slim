@@ -13,6 +13,7 @@ h1 style='text-align: center' Editar Cotizacion con folio: #{@quotation.id.to_s.
           = f.input :company, label: 'Compañía: '
           = f.input :address, label: 'Dirección: '
           = f.input :phone, label: 'Teléfono: '
+          = f.input :with_iva, label: 'Con IVA: '
           = f.input :deliver_date, label: 'Fecha de entrega: '
           = f.input :deliver_time, as: :time, label: 'Hora de entrega: '
           = f.input :pickup_date, label: 'Fecha de recoger: '

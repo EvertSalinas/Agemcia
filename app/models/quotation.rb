@@ -79,6 +79,10 @@ class Quotation < ApplicationRecord
     !pagada?
   end
 
+  def with_iva?
+    with_iva
+  end
+
   private
 
   def set_initial_paid_status

@@ -6,6 +6,7 @@ ActiveAdmin.register Quotation do
     column :name
     column :company
     column :event_date
+    column :with_iva
     column :paid
     column :state
     actions

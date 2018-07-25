@@ -10,51 +10,57 @@ br
       = link_to('Editar', edit_quotation_path, class: 'btn btn-outline-primary', style: 'width: 200px')
     .col-md-3
       = link_to('Descargar PDF', download_quotation_path(@quotation), class: 'btn btn-outline-secondary', style: 'width: 200px', format: "pdf")
-
 br
-.container
   .row
-    .col-md-5
+    .col-md-12
+      h3 Información del Cliente
+  .row
+    .col-md-12
       table.table.table-bordered
         thead
           tr
-            th bgcolor="#A9E2F3" Nombre:
+            th bgcolor="#A9E2F3" Nombre
+            th bgcolor="#A9E2F3" Compañía
+            th bgcolor="#A9E2F3" Dirección
+            th bgcolor="#A9E2F3" Teléfono
+          tr
             td #{@quotation.name}
-          tr
-            th bgcolor="#A9E2F3" Compañía:
             td #{@quotation.company}
-          tr
-            th bgcolor="#A9E2F3" Dirección:
             td #{@quotation.address}
-          tr
-            th bgcolor="#A9E2F3" Teléfono:
             td #{@quotation.phone}
-          tr
-            th bgcolor="#A9E2F3" Estatus:
-            td #{@quotation.state.capitalize}
-          tr
-            th bgcolor="#A9E2F3" Pagada:
-            td #{@quotation.paid.capitalize}
-          tr
-            th bgcolor="#A9E2F3" Con IVA:
-            td #{@quotation.with_iva? ? "Si" : "No"}
-    .col-md-5.offset-md-2
+  .row
+    .col-md-12
+      h3 Información General
+  .row
+    .col-md-12
       table.table.table-bordered
         thead
           tr
-            th bgcolor="#A9E2F3" Fecha de Evento:
+            th bgcolor="#A9E2F3" Estado de la cotizacion
+            th bgcolor="#A9E2F3" Estatus de pagada
+            th bgcolor="#A9E2F3" Con IVA
+          tr
+            td #{@quotation.state.capitalize}
+            td #{@quotation.paid.capitalize}
+            td #{@quotation.with_iva? ? "Si" : "No"}
+  .row
+    .col-md-12
+      h3 Logística
+  .row
+    .col-md-12
+      table.table.table-bordered
+        thead
+          tr
+            th bgcolor="#A9E2F3" Fecha del Evento
+            th bgcolor="#A9E2F3" Fecha de Entrega
+            th bgcolor="#A9E2F3" Hora de Entrega
+            th bgcolor="#A9E2F3" Fecha de Recoger
+            th bgcolor="#A9E2F3" Hora de Recoger
+          tr
             td = I18n.localize @quotation.event_date
-          tr
-            th bgcolor="#A9E2F3" Fecha de entrega:
             td = I18n.localize @quotation.deliver_date
-          tr
-            th bgcolor="#A9E2F3" Hora de entrega:
             td = @quotation.deliver_time.strftime('%H:%M') + ' hrs'
-          tr
-            th bgcolor="#A9E2F3" Fecha de recoger:
             td = I18n.localize @quotation.pickup_date
-          tr
-            th bgcolor="#A9E2F3" Hora de recoger:
             td = @quotation.pickup_time.strftime('%H:%M') + ' hrs'
 
 br

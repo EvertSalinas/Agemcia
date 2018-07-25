@@ -9,15 +9,15 @@ h1 style='text-align: center' Crear Nueva Cotización
         = simple_form_for @quotation, :url => quotations_path, :method => :post do |f|
           = f.input :elaboration_date, label: 'Fecha de elaboracion: '
           = f.input :event_date, label: 'Fecha de evento: '
-          = f.input :event_time, as: :time, label: 'Hora del evento: '
+          = f.input :event_time, as: :time, label: 'Hora del evento: ', default: Time.parse('12:00'), minute_step: 30
           = f.input :name, label: 'Nombre: '
           = f.input :company, label: 'Compañía: '
           = f.input :address, label: 'Dirección: '
           = f.input :phone, label: 'Teléfono: '
           = f.input :with_iva, label: 'Con IVA: '
           = f.input :deliver_date, label: 'Fecha de entrega: '
-          = f.input :deliver_time, as: :time, label: 'Hora de entrega: '
+          = f.input :deliver_time, as: :time, label: 'Hora de entrega: ', default: Time.parse('12:00'), minute_step: 30
           = f.input :pickup_date, label: 'Fecha de recoger: '
-          = f.input :pickup_time, as: :time, label: 'Hora de recoger: '
+          = f.input :pickup_time, as: :time, label: 'Hora de recoger: ', default: Time.parse('12:00'), minute_step: 30
 
           = f.button :submit, 'Agregar Productos', class: 'btn btn-primary'

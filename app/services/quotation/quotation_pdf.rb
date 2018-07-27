@@ -11,10 +11,10 @@ class Quotation::QuotationPdf < Prawn::Document
     @subtotal         = @quotation.calculate_products_total
     @iva              = @subtotal * 0.16
 
+    @should_include_iva = @quotation.with_iva
+
     @total = @subtotal + @iva     if @should_include_iva
     @total = @subtotal            unless @should_include_iva
-
-    @should_include_iva = @quotation.with_iva
 
     create_header
     create_body(products_size)
